@@ -383,3 +383,62 @@ See [AGENTS.md](AGENTS.md) for development guidelines. This guide reflects the c
 ## Permission Management
 
 Permission management is temporarily provided through the app's management page, which is visible only to accounts with the relevant permissions. Permissions should ultimately be managed through a dedicated administration backend; designing that backend is outside the current scope.
+
+## AI API Integration and Usage (Planned)
+
+An external AI API is available for integration, but its connection to this project's server and the app workflow have not yet been designed or implemented. The following describes the proposed integration and usage. Configuration names and request examples are illustrative, not an existing callable API contract.
+
+### Server-Side Setup
+
+The integration should live in `pod_app_v1_server/`. The Flutter app should call an authenticated Serverpod endpoint; the server should call the external AI API using credentials stored only on the server.
+
+```text
+Flutter App → Serverpod AI Endpoint → AI Service → External AI API
+                      ↓                   ↑
+             Permission Checks → Authorized IoT Data
+```
+
+To connect the available API when implementing this feature:
+
+1. Confirm the provider's API URL, authentication method, supported model or deployment identifier, and request/response format. These details have not yet been specified in this repository.
+2. Configure the connection on the server using the proposed settings below. Store the API key in a server environment variable or secret manager; never include it in Flutter assets, client code, or Git.
+3. Add an AI integration module, for example `lib/src/ai/`, with an Endpoint for input and permission checks, a Service for analysis, and a provider adapter for external API calls. Reuse repositories for data access.
+4. Define request and response DTOs, then run `serverpod generate` to expose the endpoint through the generated Dart client. A migration is needed only if persistent data models are introduced.
+5. Restart the server with the configured credentials and validate a request before connecting the app UI.
+
+| Proposed Setting | Purpose |
+| --- | --- |
+| `AI_API_BASE_URL` | Provider API base URL, configured by the server administrator |
+| `AI_API_KEY` | Credential issued by the API provider |
+| `AI_MODEL` | Model or deployment identifier, if required by the provider |
+| `AI_REQUEST_TIMEOUT_SECONDS` | Maximum time the server waits for an AI response |
+
+These settings are proposed names only. The current server does not read them, and setting them alone will not enable AI functionality. The adapter must map them to the actual provider's authentication and API format.
+
+### Intended Usage
+
+Once the server integration and app entry point are implemented, a user would:
+
+1. Sign in and select a site or device they are authorized to access.
+2. Choose an analysis period and enter a question, such as “Summarize this device's alarms over the last 24 hours and suggest what to inspect.”
+3. Submit the request. The server validates the resource scope and time range, retrieves a bounded summary of relevant measurements and alarms, and sends the necessary context to the AI API.
+4. Review the returned summary, supporting observations, and suggested checks in the app. The response should identify the analyzed resource and time period and indicate when data is insufficient.
+
+Possible uses include alarm summaries, explanations of measurement trends, and maintenance suggestions. The initial workflow should provide advice only; AI responses should not directly execute device commands or start OTA updates.
+
+For example, a future app-to-server request could contain the following fields. This is an illustrative payload, not a request that can be sent to the current server:
+
+```json
+{
+  "deviceId": 123,
+  "from": "2026-09-18T00:00:00Z",
+  "to": "2026-09-19T00:00:00Z",
+  "question": "Summarize the alarms and suggest maintenance checks."
+}
+```
+
+The server should derive company membership from the authenticated session and verify access to `deviceId`. It should enforce time-range and data-size limits, apply request quotas, and return clear errors for unavailable configuration, provider failures, or timeouts. Credentials and unrelated tenant data must not be included in prompts or logs.
+
+### Remaining Work
+
+The provider adapter, final configuration keys, endpoint and DTO contracts, app entry point, and response presentation are still to be implemented. Validation should cover successful analysis, missing configuration, unauthenticated requests, insufficient permissions, cross-company access, invalid input, empty data, and provider failures. No AI-specific tables or migrations are included at this stage.
