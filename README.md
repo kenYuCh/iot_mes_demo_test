@@ -6,37 +6,177 @@
 
 ## 畫面展示
 
-### 主頁與場域
+以下依功能分類展示全部 63 張截圖，每列最多三張；點擊圖片可查看原圖。
+
+### 主頁（2 張）
 
 <table>
   <tr>
-    <td align="center"><img src="screenshot/%E4%B8%BB%E9%A0%81/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.00.41.png" width="240" alt="主頁" /><br />主頁</td>
-    <td align="center"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.47.12.png" width="240" alt="場域管理" /><br />場域管理</td>
-    <td align="center"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.24.png" width="240" alt="場域詳情" /><br />場域詳情</td>
+    <td align="center"><a href="screenshot/%E4%B8%BB%E9%A0%81/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.00.41.png"><img src="screenshot/%E4%B8%BB%E9%A0%81/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.00.41.png" width="240" alt="主頁 · 01" /></a><br />主頁 · 01</td>
+    <td align="center"><a href="screenshot/%E4%B8%BB%E9%A0%81/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.00.50.png"><img src="screenshot/%E4%B8%BB%E9%A0%81/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.00.50.png" width="240" alt="主頁 · 02" /></a><br />主頁 · 02</td>
   </tr>
 </table>
 
-### 維運、製程與警報
+### 場域管理（12 張）
 
 <table>
   <tr>
-    <td align="center"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.52.43.png" width="240" alt="維運中心" /><br />維運中心</td>
-    <td align="center"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.42.png" width="240" alt="製程管理" /><br />製程管理</td>
-    <td align="center"><img src="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.58.41.png" width="240" alt="警報" /><br />警報</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.47.12.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.47.12.png" width="240" alt="場域管理 · 01" /></a><br />場域管理 · 01</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.02.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.02.png" width="240" alt="場域管理 · 02" /></a><br />場域管理 · 02</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.24.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.24.png" width="240" alt="場域管理 · 03" /></a><br />場域管理 · 03</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.43.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.43.png" width="240" alt="場域管理 · 04" /></a><br />場域管理 · 04</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.55.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.48.55.png" width="240" alt="場域管理 · 05" /></a><br />場域管理 · 05</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.49.29.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.49.29.png" width="240" alt="場域管理 · 06" /></a><br />場域管理 · 06</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.49.34.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.49.34.png" width="240" alt="場域管理 · 07" /></a><br />場域管理 · 07</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.49.39.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.49.39.png" width="240" alt="場域管理 · 08" /></a><br />場域管理 · 08</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.49.42.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.49.42.png" width="240" alt="場域管理 · 09" /></a><br />場域管理 · 09</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.50.25.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.50.25.png" width="240" alt="場域管理 · 10" /></a><br />場域管理 · 10</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.50.33.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.50.33.png" width="240" alt="場域管理 · 11" /></a><br />場域管理 · 11</td>
+    <td align="center"><a href="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.50.48.png"><img src="screenshot/site/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.50.48.png" width="240" alt="場域管理 · 12" /></a><br />場域管理 · 12</td>
   </tr>
 </table>
 
-### 設備設定與更新
+### 維運中心（10 張）
 
 <table>
   <tr>
-    <td align="center"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.19.png" width="240" alt="設備配對" /><br />設備配對</td>
-    <td align="center"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E6%AC%8A%E9%99%90%E5%85%B1%E4%BA%AB/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.10.19.png" width="240" alt="設備權限共享" /><br />設備權限共享</td>
-    <td align="center"><img src="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.41.21.png" width="240" alt="OTA 遠端更新" /><br />OTA 遠端更新</td>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.52.43.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.52.43.png" width="240" alt="維運中心 · 01" /></a><br />維運中心 · 01</td>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.53.32.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.53.32.png" width="240" alt="維運中心 · 02" /></a><br />維運中心 · 02</td>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.54.11.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.54.11.png" width="240" alt="維運中心 · 03" /></a><br />維運中心 · 03</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.54.30.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.54.30.png" width="240" alt="維運中心 · 04" /></a><br />維運中心 · 04</td>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.54.35.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.54.35.png" width="240" alt="維運中心 · 05" /></a><br />維運中心 · 05</td>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.54.42.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.54.42.png" width="240" alt="維運中心 · 06" /></a><br />維運中心 · 06</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.01.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.01.png" width="240" alt="維運中心 · 07" /></a><br />維運中心 · 07</td>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.07.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.07.png" width="240" alt="維運中心 · 08" /></a><br />維運中心 · 08</td>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.10.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.10.png" width="240" alt="維運中心 · 09" /></a><br />維運中心 · 09</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.13.png"><img src="screenshot/%E7%B6%AD%E9%81%8B%E4%B8%AD%E5%BF%83/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.13.png" width="240" alt="維運中心 · 10" /></a><br />維運中心 · 10</td>
   </tr>
 </table>
 
-更多畫面見 [screenshot/](screenshot/)。圖片使用儲存庫相對路徑，推送 README 時也需要一併提交 `screenshot/`，GitHub 才能顯示；不需要額外圖床。
+### 製程管理（9 張）
+
+<table>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.42.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.55.42.png" width="240" alt="製程管理 · 01" /></a><br />製程管理 · 01</td>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.56.19.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.56.19.png" width="240" alt="製程管理 · 02" /></a><br />製程管理 · 02</td>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.56.22.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.56.22.png" width="240" alt="製程管理 · 03" /></a><br />製程管理 · 03</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.56.51.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.56.51.png" width="240" alt="製程管理 · 04" /></a><br />製程管理 · 04</td>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.56.54.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.56.54.png" width="240" alt="製程管理 · 05" /></a><br />製程管理 · 05</td>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.57.07.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.57.07.png" width="240" alt="製程管理 · 06" /></a><br />製程管理 · 06</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.57.12.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.57.12.png" width="240" alt="製程管理 · 07" /></a><br />製程管理 · 07</td>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.57.19.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.57.19.png" width="240" alt="製程管理 · 08" /></a><br />製程管理 · 08</td>
+    <td align="center"><a href="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.57.34.png"><img src="screenshot/%E8%A3%BD%E7%A8%8B/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.57.34.png" width="240" alt="製程管理 · 09" /></a><br />製程管理 · 09</td>
+  </tr>
+</table>
+
+### 警報（4 張）
+
+<table>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.58.41.png"><img src="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.58.41.png" width="240" alt="警報 · 01" /></a><br />警報 · 01</td>
+    <td align="center"><a href="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.59.40.png"><img src="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.59.40.png" width="240" alt="警報 · 02" /></a><br />警報 · 02</td>
+    <td align="center"><a href="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.59.51.png"><img src="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.59.51.png" width="240" alt="警報 · 03" /></a><br />警報 · 03</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.00.12.png"><img src="screenshot/%E8%AD%A6%E5%A0%B1/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.00.12.png" width="240" alt="警報 · 04" /></a><br />警報 · 04</td>
+  </tr>
+</table>
+
+### 設定（3 張）
+
+<table>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.02.28.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.02.28.png" width="240" alt="設定 · 01" /></a><br />設定 · 01</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.02.38.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.02.38.png" width="240" alt="設定 · 02" /></a><br />設定 · 02</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.02.45.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.02.45.png" width="240" alt="設定 · 03" /></a><br />設定 · 03</td>
+  </tr>
+</table>
+
+### 設備特徵管理（4 張）
+
+<table>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E7%89%B9%E5%BE%B5%E7%AE%A1%E7%90%86/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.03.21.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E7%89%B9%E5%BE%B5%E7%AE%A1%E7%90%86/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.03.21.png" width="240" alt="設備特徵管理 · 01" /></a><br />設備特徵管理 · 01</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E7%89%B9%E5%BE%B5%E7%AE%A1%E7%90%86/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.03.30.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E7%89%B9%E5%BE%B5%E7%AE%A1%E7%90%86/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.03.30.png" width="240" alt="設備特徵管理 · 02" /></a><br />設備特徵管理 · 02</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E7%89%B9%E5%BE%B5%E7%AE%A1%E7%90%86/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.03.49.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E7%89%B9%E5%BE%B5%E7%AE%A1%E7%90%86/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.03.49.png" width="240" alt="設備特徵管理 · 03" /></a><br />設備特徵管理 · 03</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E7%89%B9%E5%BE%B5%E7%AE%A1%E7%90%86/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.04.45.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E7%89%B9%E5%BE%B5%E7%AE%A1%E7%90%86/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.04.45.png" width="240" alt="設備特徵管理 · 04" /></a><br />設備特徵管理 · 04</td>
+  </tr>
+</table>
+
+### 設備藍牙配對（9 張）
+
+<table>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.05.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.05.png" width="240" alt="設備藍牙配對 · 01" /></a><br />設備藍牙配對 · 01</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.11.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.11.png" width="240" alt="設備藍牙配對 · 02" /></a><br />設備藍牙配對 · 02</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.19.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.19.png" width="240" alt="設備藍牙配對 · 03" /></a><br />設備藍牙配對 · 03</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.35.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.35.png" width="240" alt="設備藍牙配對 · 04" /></a><br />設備藍牙配對 · 04</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.43.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.06.43.png" width="240" alt="設備藍牙配對 · 05" /></a><br />設備藍牙配對 · 05</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.07.01.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.07.01.png" width="240" alt="設備藍牙配對 · 06" /></a><br />設備藍牙配對 · 06</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.07.03.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.07.03.png" width="240" alt="設備藍牙配對 · 07" /></a><br />設備藍牙配對 · 07</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.07.06.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.07.06.png" width="240" alt="設備藍牙配對 · 08" /></a><br />設備藍牙配對 · 08</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.07.11.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E8%97%8D%E7%89%99%E9%85%8D%E5%B0%8D/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.07.11.png" width="240" alt="設備藍牙配對 · 09" /></a><br />設備藍牙配對 · 09</td>
+  </tr>
+</table>
+
+### 設備權限共享（2 張）
+
+<table>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E6%AC%8A%E9%99%90%E5%85%B1%E4%BA%AB/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.10.19.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E6%AC%8A%E9%99%90%E5%85%B1%E4%BA%AB/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.10.19.png" width="240" alt="設備權限共享 · 01" /></a><br />設備權限共享 · 01</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E6%AC%8A%E9%99%90%E5%85%B1%E4%BA%AB/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.11.14.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E8%A8%AD%E5%82%99%E6%AC%8A%E9%99%90%E5%85%B1%E4%BA%AB/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.11.14.png" width="240" alt="設備權限共享 · 02" /></a><br />設備權限共享 · 02</td>
+  </tr>
+</table>
+
+### OTA 遠端更新（7 張）
+
+<table>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.41.21.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.41.21.png" width="240" alt="OTA 遠端更新 · 01" /></a><br />OTA 遠端更新 · 01</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.42.27.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.42.27.png" width="240" alt="OTA 遠端更新 · 02" /></a><br />OTA 遠端更新 · 02</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.42.59.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.42.59.png" width="240" alt="OTA 遠端更新 · 03" /></a><br />OTA 遠端更新 · 03</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.43.05.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.43.05.png" width="240" alt="OTA 遠端更新 · 04" /></a><br />OTA 遠端更新 · 04</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.44.10.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.44.10.png" width="240" alt="OTA 遠端更新 · 05" /></a><br />OTA 遠端更新 · 05</td>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.44.15.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2019.44.15.png" width="240" alt="OTA 遠端更新 · 06" /></a><br />OTA 遠端更新 · 06</td>
+  </tr>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/%E9%81%B8%E7%89%88%E6%9C%AC.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/OTA%E9%81%A0%E7%AB%AF%E6%9B%B4%E6%96%B0/%E9%81%B8%E7%89%88%E6%9C%AC.png" width="240" alt="OTA 遠端更新 · 選版本" /></a><br />OTA 遠端更新 · 選版本</td>
+  </tr>
+</table>
+
+### 登出（1 張）
+
+<table>
+  <tr>
+    <td align="center"><a href="screenshot/%E8%A8%AD%E5%AE%9A/%E7%99%BB%E5%87%BA/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.11.32.png"><img src="screenshot/%E8%A8%AD%E5%AE%9A/%E7%99%BB%E5%87%BA/Simulator%20Screenshot%20-%20iPhone%2016%20Pro%20-%202026-09-18%20at%2020.11.32.png" width="240" alt="登出 · 01" /></a><br />登出 · 01</td>
+  </tr>
+</table>
+
+圖片來源為 [screenshot/](screenshot/)，使用儲存庫相對路徑。推送 README 時也需要一併提交 `screenshot/`，GitHub 才能顯示；不需要額外圖床。
 
 ## 專案結構
 
