@@ -1,0 +1,28 @@
+### 告警事件：規則被觸發後產生，恢復正常時自動 resolved。
+class: Alert
+table: alert
+fields:
+  companyId: int
+  siteId: int
+  deviceId: int
+  ruleId: int
+  featureKey: String
+  ### 觸發當下的量測值。
+  triggeredValue: double
+  threshold: double
+  comparison: AlertComparison
+  severity: AlertSeverity
+  ### 觸發當下規則的手機通知決策；保存在事件上供即時客戶端判斷。
+  mobileNotificationEnabled: bool, default=false
+  state: AlertState
+  message: String
+  triggeredAt: DateTime
+  acknowledgedAt: DateTime?
+  resolvedAt: DateTime?
+indexes:
+  alert_company_state_idx:
+    fields: companyId, state
+  alert_rule_active_idx:
+    fields: ruleId, state
+  alert_device_idx:
+    fields: deviceId

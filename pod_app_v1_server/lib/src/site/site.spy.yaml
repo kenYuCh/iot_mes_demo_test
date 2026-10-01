@@ -1,0 +1,11 @@
+### 場域（廠區／樓層等監控範圍）。
+class: Site
+table: site
+fields:
+  companyId: int
+  name: String
+  description: String?
+  createdAt: DateTime
+indexes:
+  site_company_created_idx:
+    fields: companyId, createdAt

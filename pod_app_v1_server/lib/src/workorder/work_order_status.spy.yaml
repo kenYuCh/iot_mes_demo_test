@@ -1,0 +1,12 @@
+### 工單狀態機：open → inProgress → done / cancelled。
+enum: WorkOrderStatus
+serialized: byName
+values:
+  ### 已開立，待指派處理。
+  - open
+  ### 處理中。
+  - inProgress
+  ### 已完成。
+  - done
+  ### 已取消。
+  - cancelled

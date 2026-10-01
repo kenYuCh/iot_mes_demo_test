@@ -1,0 +1,9 @@
+### 分支命中後送出的單一控制動作。
+class: AutomationAction
+fields:
+  deviceId: int
+  featureKey: String
+  value: double
+  durationSeconds: int
+  delaySeconds: int
+

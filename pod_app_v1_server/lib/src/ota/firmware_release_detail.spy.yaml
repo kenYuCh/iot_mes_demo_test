@@ -1,0 +1,5 @@
+### 韌體版本與其全部檔案產物。
+class: FirmwareReleaseDetail
+fields:
+  release: FirmwarePackage
+  artifacts: List<FirmwareArtifact>

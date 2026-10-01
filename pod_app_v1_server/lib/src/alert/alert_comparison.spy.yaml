@@ -1,0 +1,12 @@
+### 告警規則的比較運算子。
+enum: AlertComparison
+serialized: byName
+values:
+  ### 量測值大於閾值時觸發。
+  - greaterThan
+  ### 量測值大於等於閾值時觸發。
+  - greaterOrEqual
+  ### 量測值小於閾值時觸發。
+  - lessThan
+  ### 量測值小於等於閾值時觸發。
+  - lessOrEqual

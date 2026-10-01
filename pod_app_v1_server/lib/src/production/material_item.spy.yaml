@@ -1,0 +1,20 @@
+class: MaterialItem
+table: material
+fields:
+  companyId: int
+  code: String
+  name: String
+  type: MaterialType
+  specification: String?
+  unit: String
+  supplier: String?
+  safetyStock: double, default=0
+  active: bool, default=true
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  material_company_code_uidx:
+    fields: companyId, code
+    unique: true
+  material_company_name_idx:
+    fields: companyId, name

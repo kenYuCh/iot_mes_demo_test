@@ -1,0 +1,17 @@
+### 歷史量測資料（高頻寫入，批次插入，不逐筆交易）。
+class: Measurement
+table: measurement
+fields:
+  companyId: int
+  deviceId: int
+  featureKey: String
+  value: double
+  ### 設備量測時間（UTC）。
+  measuredAt: DateTime
+  ### 平台收到時間（UTC）。
+  receivedAt: DateTime
+indexes:
+  measurement_device_time_idx:
+    fields: deviceId, measuredAt
+  measurement_company_time_idx:
+    fields: companyId, measuredAt

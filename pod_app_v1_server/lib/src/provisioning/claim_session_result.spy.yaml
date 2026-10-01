@@ -1,0 +1,7 @@
+### 綁定請求回應（手冊 §7：claim_session_id + expires_in + status）。
+class: ClaimSessionResult
+fields:
+  claimSessionId: String
+  expiresInSeconds: int
+  status: String
+  serial: String

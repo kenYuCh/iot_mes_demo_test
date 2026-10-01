@@ -1,0 +1,10 @@
+### 告警狀態。
+enum: AlertState
+serialized: byName
+values:
+  ### 觸發中，數值仍超出閾值。
+  - active
+  ### 使用者已確認，但條件尚未恢復。
+  - acknowledged
+  ### 數值已恢復正常。
+  - resolved

@@ -1,0 +1,23 @@
+### 設備的一個特徵：量測通道（唯讀）或控制參數（可寫，經命令下發）。
+### 同一台設備可有多個量測通道與控制參數（例如馬達驅動器 6 量測 + 3 控制）。
+class: DeviceFeature
+fields:
+  ### 特徵鍵，即 Measurement.featureKey / DeviceStatus.latestValues 的 key。
+  key: String
+  ### 顯示名稱，例如「馬達轉速」。
+  label: String
+  unit: String
+  kind: FeatureKind
+  ### 數值語意。boolean 使用 0/1；enumeration 使用 enumOptions 的索引。
+  dataType: FeatureDataType?
+  ### 前端控制呈現；量測通道為 null。
+  controlPresentation: ControlPresentation?
+  ### enumeration 的顯示選項，索引即實際下發值。
+  enumOptions: List<String>?
+  ### 建議顯示的小數位數。
+  precision: int?
+  description: String?
+  minValue: double
+  maxValue: double
+  ### 控制參數的出廠預設值（量測通道為 null）。
+  defaultValue: double?

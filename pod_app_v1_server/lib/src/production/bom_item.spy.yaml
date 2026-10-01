@@ -1,0 +1,18 @@
+class: BomItem
+table: bom_item
+fields:
+  companyId: int
+  productDefinitionId: int
+  materialId: int
+  quantity: double
+  unit: String
+  scrapRatePercent: double, default=0
+  note: String?
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  bom_product_material_uidx:
+    fields: companyId, productDefinitionId, materialId
+    unique: true
+  bom_product_idx:
+    fields: productDefinitionId

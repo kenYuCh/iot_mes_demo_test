@@ -1,0 +1,23 @@
+### 一次 OTA 發布活動；每台目標設備另有 OtaDeviceJob。
+class: OtaCampaign
+table: ota_campaign
+fields:
+  companyId: int
+  firmwarePackageId: int
+  name: String
+  targetDeviceType: String
+  strategy: OtaStrategy
+  state: OtaCampaignState
+  scheduledAt: DateTime?
+  totalDevices: int
+  succeededDevices: int
+  failedDevices: int
+  createdBy: String
+  createdAt: DateTime
+  startedAt: DateTime?
+  completedAt: DateTime?
+indexes:
+  ota_campaign_company_created_idx:
+    fields: companyId, createdAt
+  ota_campaign_firmware_idx:
+    fields: firmwarePackageId

@@ -1,0 +1,23 @@
+# Backend（CN = backend-service）
+user backend-service
+topic read devices/+/telemetry
+topic read devices/+/state
+topic read devices/+/controls/state
+topic read devices/+/events/#
+topic read devices/+/commands/status
+topic read devices/+/ota/status
+topic write devices/+/commands/#
+topic write devices/+/config/#
+topic write devices/+/ota/request
+topic read $SYS/#
+
+# Device（CN = 設備序號；%u = 憑證 CN）
+pattern write devices/%u/telemetry
+pattern write devices/%u/state
+pattern write devices/%u/controls/state
+pattern write devices/%u/events/#
+pattern write devices/%u/commands/status
+pattern write devices/%u/ota/status
+pattern read devices/%u/commands/#
+pattern read devices/%u/config/#
+pattern read devices/%u/ota/request

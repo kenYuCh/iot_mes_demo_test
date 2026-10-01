@@ -1,0 +1,14 @@
+class: ProductionLine
+table: production_line
+fields:
+  companyId: int
+  code: String
+  name: String
+  description: String?
+  active: bool, default=true
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  production_line_company_code_uidx:
+    fields: companyId, code
+    unique: true

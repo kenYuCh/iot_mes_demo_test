@@ -1,0 +1,33 @@
+### 設備固定資料（Metadata）。高頻即時狀態存於 DeviceStatus，不得寫入本表。
+class: Device
+table: device
+fields:
+  companyId: int
+  siteId: int
+  ### null 表示設備以 Wi-Fi / Ethernet 直接連線 Server/MQTT；非 null 表示經閘道器。
+  gatewayId: int?
+  ### 實體設備序號；邏輯設備可為 null。用於 MQTT、OTA 與配對關聯。
+  serialNumber: String?
+  name: String
+  model: String
+  ### 硬體版次，用於 OTA 相容性檢查。
+  hardwareRevision: String?
+  ### 裝置目前回報的韌體版本。
+  firmwareVersion: String?
+  ### 型別檔 id（DeviceProfile.id），例如 temperature / env_multi / motor_drive。
+  deviceType: String
+  ### 特徵清單（量測通道＋控制參數）。null 時依 deviceType 從型別檔目錄補齊。
+  features: List<DeviceFeature>?
+  ### 預期上報間隔（秒），用於 STALE / OFFLINE 判斷。
+  expectedIntervalSeconds: int
+  ### 2D 廠房地圖座標（0..1 正規化；null 表示尚未擺放）。
+  mapX: double?
+  mapY: double?
+  createdAt: DateTime
+indexes:
+  device_company_site_idx:
+    fields: companyId, siteId
+  device_gateway_idx:
+    fields: gatewayId
+  device_serial_idx:
+    fields: serialNumber

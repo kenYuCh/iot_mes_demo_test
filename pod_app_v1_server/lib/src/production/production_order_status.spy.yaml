@@ -1,0 +1,7 @@
+enum: ProductionOrderStatus
+values:
+  - draft
+  - released
+  - inProgress
+  - completed
+  - cancelled

@@ -1,0 +1,6 @@
+### 設備特徵種類：量測通道或可寫控制參數。
+enum: FeatureKind
+serialized: byName
+values:
+  - measurement
+  - control

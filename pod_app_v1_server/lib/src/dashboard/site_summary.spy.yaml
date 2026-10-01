@@ -1,0 +1,8 @@
+### 單一場域的彙總狀態（Dashboard 場域卡片）。
+class: SiteSummary
+fields:
+  siteId: int
+  name: String
+  deviceCount: int
+  onlineCount: int
+  openAlertCount: int

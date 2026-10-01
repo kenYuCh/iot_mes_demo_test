@@ -1,0 +1,19 @@
+### 公司自訂設備型別檔。內建型別仍由程式提供，自訂型別持久化於此表。
+class: CustomDeviceProfile
+table: custom_device_profile
+fields:
+  companyId: int
+  profileKey: String
+  name: String
+  description: String?
+  mcuFamily: String?
+  category: String?
+  features: List<DeviceFeature>
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  custom_device_profile_company_key_uidx:
+    fields: companyId, profileKey
+    unique: true
+  custom_device_profile_company_idx:
+    fields: companyId

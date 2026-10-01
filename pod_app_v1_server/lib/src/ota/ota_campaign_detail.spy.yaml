@@ -1,0 +1,6 @@
+### OTA 中心顯示用 DTO，避免前端逐筆查詢造成 N+1。
+class: OtaCampaignDetail
+fields:
+  campaign: OtaCampaign
+  firmware: FirmwarePackage
+  jobs: List<OtaDeviceJob>

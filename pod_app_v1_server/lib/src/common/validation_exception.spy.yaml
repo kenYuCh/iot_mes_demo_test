@@ -1,0 +1,4 @@
+### 輸入或操作不合法（例如刪除仍有子資源的場域）。
+exception: ValidationException
+fields:
+  message: String

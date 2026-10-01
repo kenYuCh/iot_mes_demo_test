@@ -1,0 +1,11 @@
+### 全公司 Dashboard 彙總（KPI 與場域狀態卡片）。
+class: DashboardSummary
+fields:
+  siteCount: int
+  gatewayCount: int
+  deviceCount: int
+  onlineCount: int
+  staleCount: int
+  offlineCount: int
+  openAlertCount: int
+  sites: List<SiteSummary>

@@ -1,0 +1,11 @@
+enum: OtaJobState
+serialized: byName
+values:
+  - pending
+  - downloading
+  - installing
+  - verifying
+  - succeeded
+  - failed
+  - cancelled
+  - rolledBack

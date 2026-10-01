@@ -1,0 +1,8 @@
+### 工單優先級。
+enum: WorkOrderPriority
+serialized: byName
+values:
+  - low
+  - normal
+  - high
+  - urgent

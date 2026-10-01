@@ -1,0 +1,15 @@
+class: ProductDefinition
+table: product_definition
+fields:
+  companyId: int
+  code: String
+  name: String
+  specification: String?
+  unit: String
+  active: bool, default=true
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  product_definition_company_code_uidx:
+    fields: companyId, code
+    unique: true

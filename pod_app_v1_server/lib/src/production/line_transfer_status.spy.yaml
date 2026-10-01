@@ -1,0 +1,6 @@
+enum: LineTransferStatus
+values:
+  - awaitingDispatch
+  - inTransit
+  - received
+  - cancelled

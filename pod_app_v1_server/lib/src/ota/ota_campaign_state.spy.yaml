@@ -1,0 +1,10 @@
+enum: OtaCampaignState
+serialized: byName
+values:
+  - draft
+  - scheduled
+  - running
+  - paused
+  - completed
+  - failed
+  - cancelled

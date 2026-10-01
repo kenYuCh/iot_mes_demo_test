@@ -1,0 +1,16 @@
+### 設備即時狀態（與 Device 主表分離）。正式環境最新值以 Redis 為主，本表為持久化快照。
+class: DeviceStatus
+table: device_status
+fields:
+  companyId: int
+  deviceId: int
+  connectionState: DeviceConnectionState
+  ### 各 feature 最新值，key 為 featureKey。
+  latestValues: Map<String, double>
+  lastUpdatedAt: DateTime?
+indexes:
+  device_status_device_uidx:
+    fields: deviceId
+    unique: true
+  device_status_company_idx:
+    fields: companyId

@@ -1,0 +1,12 @@
+# MQTT / CA 私鑰與執行期資料（勿提交）
+ca/*.key
+ca/*.srl
+mqtt/**/*.key
+mqtt/**/*.csr
+mqtt/**/*.srl
+!ca/.gitkeep
+postgres/
+postgres_test/
+redis/
+redis_test/
+certs/mqtt/devices/

@@ -1,0 +1,19 @@
+class: AuditLog
+table: audit_log
+fields:
+  companyId: int
+  userIdentifier: String
+  source: String
+  action: String
+  resourceType: String
+  resourceId: int?
+  deviceId: int?
+  summary: String
+  details: Map<String, String>?
+  success: bool
+  createdAt: DateTime
+indexes:
+  audit_log_company_time_idx:
+    fields: companyId, createdAt
+  audit_log_device_time_idx:
+    fields: deviceId, createdAt

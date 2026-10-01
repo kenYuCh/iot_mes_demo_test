@@ -1,0 +1,12 @@
+### 權限管理頁使用的安全 DTO。
+class: MemberAccessSummary
+fields:
+  membershipId: int
+  email: String
+  displayName: String?
+  role: CompanyRole
+  permissions: List<PlatformPermission>
+  isActive: bool
+  sharedDeviceIds: List<int>
+  writableDeviceIds: List<int>
+  isCurrentUser: bool

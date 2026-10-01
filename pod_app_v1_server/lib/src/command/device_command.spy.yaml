@@ -1,0 +1,30 @@
+### 下發至裝置的控制命令（冪等，一鍵一命令）。
+class: DeviceCommand
+table: device_command
+fields:
+  companyId: int
+  deviceId: int
+  ### 命令類型，例如 reboot、calibrate、setInterval。
+  commandType: String
+  ### 命令參數。
+  payload: Map<String, String>
+  state: DeviceCommandState
+  ### 冪等鍵：同一鍵重複下發時回傳既有命令，不重複建立。
+  idempotencyKey: String
+  ### 下發者（authUserId）。
+  issuedBy: String
+  ### 失敗或逾時原因。
+  errorMessage: String?
+  createdAt: DateTime
+  sentAt: DateTime?
+  acknowledgedAt: DateTime?
+  ### 進入終態（completed/failed/timedOut/cancelled）時間。
+  completedAt: DateTime?
+indexes:
+  device_command_idem_uidx:
+    fields: idempotencyKey
+    unique: true
+  device_command_device_idx:
+    fields: deviceId, createdAt
+  device_command_company_idx:
+    fields: companyId

@@ -1,0 +1,16 @@
+class: WorkstationAssignment
+table: workstation_assignment
+fields:
+  companyId: int
+  workstationId: int
+  membershipId: int
+  active: bool, default=true
+  assignedBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  workstation_assignment_member_station_uidx:
+    fields: membershipId, workstationId
+    unique: true
+  workstation_assignment_company_idx:
+    fields: companyId, active

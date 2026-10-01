@@ -1,0 +1,6 @@
+### 量測歷史查詢結果（cursor 分頁）。
+class: MeasurementListResult
+fields:
+  items: List<Measurement>
+  ### 下一頁 cursor（最後一筆 id）；null 表示沒有更多資料。
+  nextCursorId: int?

@@ -1,0 +1,20 @@
+### 將單一設備分享給公司成員，讀寫權限分離。
+class: DeviceShare
+table: device_share
+fields:
+  companyId: int
+  deviceId: int
+  membershipId: int
+  canRead: bool, default=true
+  canWrite: bool, default=false
+  createdBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  device_share_device_member_uidx:
+    fields: deviceId, membershipId
+    unique: true
+  device_share_company_idx:
+    fields: companyId
+  device_share_membership_idx:
+    fields: membershipId

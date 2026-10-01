@@ -1,0 +1,7 @@
+### 設備功能值的資料語意；傳輸層統一使用 double 以維持即時資料效能。
+enum: FeatureDataType
+serialized: byName
+values:
+  - number
+  - boolean
+  - enumeration

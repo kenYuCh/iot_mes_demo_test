@@ -1,0 +1,24 @@
+class: ProductionOrder
+table: production_order
+fields:
+  companyId: int
+  orderNumber: String
+  productDefinitionId: int
+  routeId: int
+  plannedQuantity: int
+  completedQuantity: int, default=0
+  rejectedQuantity: int, default=0
+  status: ProductionOrderStatus
+  scheduledStart: DateTime?
+  scheduledEnd: DateTime?
+  startedAt: DateTime?
+  completedAt: DateTime?
+  createdBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  production_order_company_number_uidx:
+    fields: companyId, orderNumber
+    unique: true
+  production_order_status_idx:
+    fields: companyId, status

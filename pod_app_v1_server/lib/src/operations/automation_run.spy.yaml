@@ -1,0 +1,17 @@
+class: AutomationRun
+table: automation_run
+fields:
+  companyId: int
+  ruleId: int
+  state: String
+  triggerValue: double
+  repeatCount: int
+  currentStep: String
+  message: String?
+  startedAt: DateTime
+  finishedAt: DateTime?
+indexes:
+  automation_run_company_time_idx:
+    fields: companyId, startedAt
+  automation_run_rule_idx:
+    fields: ruleId, startedAt

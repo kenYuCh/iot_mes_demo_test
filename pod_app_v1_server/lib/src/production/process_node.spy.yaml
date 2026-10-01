@@ -1,0 +1,25 @@
+class: ProcessNode
+table: process_node
+fields:
+  companyId: int
+  routeId: int
+  sequence: int
+  code: String
+  name: String
+  stationCode: String
+  standardSeconds: int
+  scanMode: String, default='startComplete'
+  allowSkip: bool, default=false
+  allowRework: bool, default=true
+  measurementRequirements: Map<String, String>?
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  process_node_route_sequence_uidx:
+    fields: routeId, sequence
+    unique: true
+  process_node_route_code_uidx:
+    fields: routeId, code
+    unique: true
+  process_node_station_idx:
+    fields: companyId, stationCode

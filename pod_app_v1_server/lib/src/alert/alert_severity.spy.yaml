@@ -1,0 +1,9 @@
+### 告警等級（見 docs/product/enterprise-iot-platform-spec.md 13.1）。
+enum: AlertSeverity
+serialized: byName
+values:
+  - info
+  - warning
+  - major
+  - critical
+  - emergency

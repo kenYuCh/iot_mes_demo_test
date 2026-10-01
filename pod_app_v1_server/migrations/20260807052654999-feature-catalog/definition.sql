@@ -1,0 +1,1187 @@
+BEGIN;
+
+--
+-- Function: gen_random_uuid_v7()
+-- Source: https://gist.github.com/kjmph/5bd772b2c2df145aa645b837da7eca74
+-- License: MIT (copyright notice included on the generator source code).
+--
+create or replace function gen_random_uuid_v7()
+returns uuid
+as $$
+begin
+  -- use random v4 uuid as starting point (which has the same variant we need)
+  -- then overlay timestamp
+  -- then set version 7 by flipping the 2 and 1 bit in the version 4 string
+  return encode(
+    set_bit(
+      set_bit(
+        overlay(uuid_send(gen_random_uuid())
+                placing substring(int8send(floor(extract(epoch from clock_timestamp()) * 1000)::bigint) from 3)
+                from 1 for 6
+        ),
+        52, 1
+      ),
+      53, 1
+    ),
+    'hex')::uuid;
+end
+$$
+language plpgsql
+volatile;
+
+--
+-- Class Alert as table alert
+--
+CREATE TABLE "alert" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "siteId" bigint NOT NULL,
+    "deviceId" bigint NOT NULL,
+    "ruleId" bigint NOT NULL,
+    "featureKey" text NOT NULL,
+    "triggeredValue" double precision NOT NULL,
+    "threshold" double precision NOT NULL,
+    "comparison" text NOT NULL,
+    "severity" text NOT NULL,
+    "state" text NOT NULL,
+    "message" text NOT NULL,
+    "triggeredAt" timestamp without time zone NOT NULL,
+    "acknowledgedAt" timestamp without time zone,
+    "resolvedAt" timestamp without time zone
+);
+
+-- Indexes
+CREATE INDEX "alert_company_state_idx" ON "alert" USING btree ("companyId", "state");
+CREATE INDEX "alert_rule_active_idx" ON "alert" USING btree ("ruleId", "state");
+CREATE INDEX "alert_device_idx" ON "alert" USING btree ("deviceId");
+
+--
+-- Class AlertRule as table alert_rule
+--
+CREATE TABLE "alert_rule" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "deviceId" bigint NOT NULL,
+    "featureKey" text NOT NULL,
+    "name" text NOT NULL,
+    "comparison" text NOT NULL,
+    "threshold" double precision NOT NULL,
+    "severity" text NOT NULL,
+    "enabled" boolean NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE INDEX "alert_rule_device_idx" ON "alert_rule" USING btree ("deviceId");
+CREATE INDEX "alert_rule_company_idx" ON "alert_rule" USING btree ("companyId");
+
+--
+-- Class Company as table company
+--
+CREATE TABLE "company" (
+    "id" bigserial PRIMARY KEY,
+    "name" text NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "company_name_uidx" ON "company" USING btree ("name");
+
+--
+-- Class CompanyMembership as table company_membership
+--
+CREATE TABLE "company_membership" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "authUserId" text NOT NULL,
+    "role" text,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "company_membership_auth_user_uidx" ON "company_membership" USING btree ("authUserId");
+CREATE INDEX "company_membership_company_idx" ON "company_membership" USING btree ("companyId");
+
+--
+-- Class CustomDeviceProfile as table custom_device_profile
+--
+CREATE TABLE "custom_device_profile" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "profileKey" text NOT NULL,
+    "name" text NOT NULL,
+    "description" text,
+    "features" json NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "custom_device_profile_company_key_uidx" ON "custom_device_profile" USING btree ("companyId", "profileKey");
+CREATE INDEX "custom_device_profile_company_idx" ON "custom_device_profile" USING btree ("companyId");
+
+--
+-- Class Device as table device
+--
+CREATE TABLE "device" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "siteId" bigint NOT NULL,
+    "gatewayId" bigint,
+    "serialNumber" text,
+    "name" text NOT NULL,
+    "model" text NOT NULL,
+    "hardwareRevision" text,
+    "firmwareVersion" text,
+    "deviceType" text NOT NULL,
+    "features" json,
+    "expectedIntervalSeconds" bigint NOT NULL,
+    "mapX" double precision,
+    "mapY" double precision,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE INDEX "device_company_site_idx" ON "device" USING btree ("companyId", "siteId");
+CREATE INDEX "device_gateway_idx" ON "device" USING btree ("gatewayId");
+CREATE INDEX "device_serial_idx" ON "device" USING btree ("serialNumber");
+
+--
+-- Class DeviceCertificate as table device_certificate
+--
+CREATE TABLE "device_certificate" (
+    "id" bigserial PRIMARY KEY,
+    "serial" text NOT NULL,
+    "certSerialNumber" text NOT NULL,
+    "subjectCn" text NOT NULL,
+    "certificatePem" text NOT NULL,
+    "version" bigint NOT NULL,
+    "issuedAt" timestamp without time zone NOT NULL,
+    "expiresAt" timestamp without time zone NOT NULL,
+    "revoked" boolean NOT NULL,
+    "revokedAt" timestamp without time zone
+);
+
+-- Indexes
+CREATE INDEX "device_certificate_serial_idx" ON "device_certificate" USING btree ("serial");
+CREATE UNIQUE INDEX "device_certificate_cert_serial_uidx" ON "device_certificate" USING btree ("certSerialNumber");
+
+--
+-- Class DeviceClaim as table device_claim
+--
+CREATE TABLE "device_claim" (
+    "id" bigserial PRIMARY KEY,
+    "sessionId" text NOT NULL,
+    "serial" text NOT NULL,
+    "userIdentifier" text NOT NULL,
+    "companyId" bigint NOT NULL,
+    "status" text NOT NULL,
+    "expiresAt" timestamp without time zone NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "confirmedAt" timestamp without time zone
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "device_claim_session_uidx" ON "device_claim" USING btree ("sessionId");
+CREATE INDEX "device_claim_serial_idx" ON "device_claim" USING btree ("serial");
+
+--
+-- Class DeviceCommand as table device_command
+--
+CREATE TABLE "device_command" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "deviceId" bigint NOT NULL,
+    "commandType" text NOT NULL,
+    "payload" json NOT NULL,
+    "state" text NOT NULL,
+    "idempotencyKey" text NOT NULL,
+    "issuedBy" text NOT NULL,
+    "errorMessage" text,
+    "createdAt" timestamp without time zone NOT NULL,
+    "sentAt" timestamp without time zone,
+    "acknowledgedAt" timestamp without time zone,
+    "completedAt" timestamp without time zone
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "device_command_idem_uidx" ON "device_command" USING btree ("idempotencyKey");
+CREATE INDEX "device_command_device_idx" ON "device_command" USING btree ("deviceId", "createdAt");
+CREATE INDEX "device_command_company_idx" ON "device_command" USING btree ("companyId");
+
+--
+-- Class DeviceStatus as table device_status
+--
+CREATE TABLE "device_status" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "deviceId" bigint NOT NULL,
+    "connectionState" text NOT NULL,
+    "latestValues" json NOT NULL,
+    "lastUpdatedAt" timestamp without time zone
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "device_status_device_uidx" ON "device_status" USING btree ("deviceId");
+CREATE INDEX "device_status_company_idx" ON "device_status" USING btree ("companyId");
+
+--
+-- Class FeatureDefinition as table feature_definition
+--
+CREATE TABLE "feature_definition" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "featureKey" text NOT NULL,
+    "label" text NOT NULL,
+    "unit" text NOT NULL,
+    "kind" text NOT NULL,
+    "dataType" text,
+    "controlPresentation" text,
+    "enumOptions" json,
+    "precision" bigint,
+    "description" text,
+    "minValue" double precision NOT NULL,
+    "maxValue" double precision NOT NULL,
+    "defaultValue" double precision,
+    "createdAt" timestamp without time zone NOT NULL,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "feature_definition_company_key_uidx" ON "feature_definition" USING btree ("companyId", "featureKey");
+CREATE INDEX "feature_definition_company_idx" ON "feature_definition" USING btree ("companyId");
+
+--
+-- Class FirmwareArtifact as table firmware_artifact
+--
+CREATE TABLE "firmware_artifact" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "firmwarePackageId" bigint NOT NULL,
+    "fileName" text NOT NULL,
+    "fileType" text NOT NULL,
+    "core" text,
+    "storagePath" text NOT NULL,
+    "sha256" text NOT NULL,
+    "sizeBytes" bigint NOT NULL,
+    "isPrimary" boolean NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "deletedAt" timestamp without time zone
+);
+
+-- Indexes
+CREATE INDEX "firmware_artifact_package_idx" ON "firmware_artifact" USING btree ("firmwarePackageId");
+CREATE UNIQUE INDEX "firmware_artifact_package_name_uidx" ON "firmware_artifact" USING btree ("firmwarePackageId", "fileName");
+
+--
+-- Class FirmwarePackage as table firmware_package
+--
+CREATE TABLE "firmware_package" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "name" text NOT NULL,
+    "version" text NOT NULL,
+    "targetDeviceType" text NOT NULL,
+    "productKey" text,
+    "chipFamily" text,
+    "updateProtocol" text,
+    "hardwareRevision" text,
+    "releaseNotes" text,
+    "downloadUrl" text NOT NULL,
+    "fileName" text,
+    "storagePath" text,
+    "sha256" text NOT NULL,
+    "sizeBytes" bigint NOT NULL,
+    "state" text NOT NULL,
+    "createdBy" text NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "deletedAt" timestamp without time zone,
+    "deletedBy" text
+);
+
+-- Indexes
+CREATE INDEX "firmware_company_type_idx" ON "firmware_package" USING btree ("companyId", "targetDeviceType");
+CREATE UNIQUE INDEX "firmware_company_version_uidx" ON "firmware_package" USING btree ("companyId", "targetDeviceType", "version");
+
+--
+-- Class Gateway as table gateway
+--
+CREATE TABLE "gateway" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "siteId" bigint NOT NULL,
+    "serialNumber" text NOT NULL,
+    "name" text NOT NULL,
+    "model" text,
+    "productKey" text,
+    "chipFamily" text,
+    "updateProtocol" text,
+    "hardwareRevision" text,
+    "firmwareVersion" text,
+    "connectionState" text NOT NULL,
+    "lastSeenAt" timestamp without time zone,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "gateway_serial_uidx" ON "gateway" USING btree ("serialNumber");
+CREATE INDEX "gateway_company_site_idx" ON "gateway" USING btree ("companyId", "siteId");
+
+--
+-- Class Measurement as table measurement
+--
+CREATE TABLE "measurement" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "deviceId" bigint NOT NULL,
+    "featureKey" text NOT NULL,
+    "value" double precision NOT NULL,
+    "measuredAt" timestamp without time zone NOT NULL,
+    "receivedAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE INDEX "measurement_device_time_idx" ON "measurement" USING btree ("deviceId", "measuredAt");
+CREATE INDEX "measurement_company_time_idx" ON "measurement" USING btree ("companyId", "measuredAt");
+
+--
+-- Class OtaCampaign as table ota_campaign
+--
+CREATE TABLE "ota_campaign" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "firmwarePackageId" bigint NOT NULL,
+    "name" text NOT NULL,
+    "targetDeviceType" text NOT NULL,
+    "strategy" text NOT NULL,
+    "state" text NOT NULL,
+    "scheduledAt" timestamp without time zone,
+    "totalDevices" bigint NOT NULL,
+    "succeededDevices" bigint NOT NULL,
+    "failedDevices" bigint NOT NULL,
+    "createdBy" text NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "startedAt" timestamp without time zone,
+    "completedAt" timestamp without time zone
+);
+
+-- Indexes
+CREATE INDEX "ota_campaign_company_created_idx" ON "ota_campaign" USING btree ("companyId", "createdAt");
+CREATE INDEX "ota_campaign_firmware_idx" ON "ota_campaign" USING btree ("firmwarePackageId");
+
+--
+-- Class OtaDeviceJob as table ota_device_job
+--
+CREATE TABLE "ota_device_job" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "campaignId" bigint NOT NULL,
+    "deviceId" bigint,
+    "gatewayId" bigint,
+    "state" text NOT NULL,
+    "progress" bigint NOT NULL,
+    "previousVersion" text,
+    "errorMessage" text,
+    "updatedAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE INDEX "ota_job_campaign_idx" ON "ota_device_job" USING btree ("campaignId");
+CREATE INDEX "ota_job_device_idx" ON "ota_device_job" USING btree ("deviceId", "updatedAt");
+CREATE INDEX "ota_job_gateway_idx" ON "ota_device_job" USING btree ("gatewayId", "updatedAt");
+CREATE UNIQUE INDEX "ota_job_campaign_device_uidx" ON "ota_device_job" USING btree ("campaignId", "deviceId");
+
+--
+-- Class ProductionStat as table production_stat
+--
+CREATE TABLE "production_stat" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "siteId" bigint NOT NULL,
+    "windowStart" timestamp without time zone NOT NULL,
+    "plannedMinutes" double precision NOT NULL,
+    "runMinutes" double precision NOT NULL,
+    "idealCount" bigint NOT NULL,
+    "actualCount" bigint NOT NULL,
+    "goodCount" bigint NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "production_stat_site_window_uidx" ON "production_stat" USING btree ("siteId", "windowStart");
+CREATE INDEX "production_stat_company_idx" ON "production_stat" USING btree ("companyId", "windowStart");
+
+--
+-- Class ProvisionedDevice as table provisioned_device
+--
+CREATE TABLE "provisioned_device" (
+    "id" bigserial PRIMARY KEY,
+    "serial" text NOT NULL,
+    "model" text NOT NULL,
+    "claimCodeHash" text NOT NULL,
+    "manufacturerVerified" boolean,
+    "factoryCertificateFingerprint" text,
+    "manufacturerVerifiedAt" timestamp without time zone,
+    "state" text NOT NULL,
+    "companyId" bigint,
+    "claimedBy" text,
+    "claimedAt" timestamp without time zone,
+    "linkedGatewayId" bigint,
+    "linkedDeviceId" bigint,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "provisioned_device_serial_uidx" ON "provisioned_device" USING btree ("serial");
+CREATE INDEX "provisioned_device_company_idx" ON "provisioned_device" USING btree ("companyId");
+
+--
+-- Class Site as table site
+--
+CREATE TABLE "site" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "name" text NOT NULL,
+    "description" text,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE INDEX "site_company_created_idx" ON "site" USING btree ("companyId", "createdAt");
+
+--
+-- Class WorkOrder as table work_order
+--
+CREATE TABLE "work_order" (
+    "id" bigserial PRIMARY KEY,
+    "companyId" bigint NOT NULL,
+    "siteId" bigint NOT NULL,
+    "deviceId" bigint,
+    "alertId" bigint,
+    "title" text NOT NULL,
+    "description" text,
+    "status" text NOT NULL,
+    "priority" text NOT NULL,
+    "note" text,
+    "createdBy" text NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "startedAt" timestamp without time zone,
+    "completedAt" timestamp without time zone
+);
+
+-- Indexes
+CREATE INDEX "work_order_company_status_idx" ON "work_order" USING btree ("companyId", "status");
+CREATE INDEX "work_order_site_idx" ON "work_order" USING btree ("siteId");
+CREATE INDEX "work_order_device_idx" ON "work_order" USING btree ("deviceId");
+
+--
+-- Class CloudStorageEntry as table serverpod_cloud_storage
+--
+CREATE TABLE "serverpod_cloud_storage" (
+    "id" bigserial PRIMARY KEY,
+    "storageId" text NOT NULL,
+    "path" text NOT NULL,
+    "addedTime" timestamp without time zone NOT NULL,
+    "expiration" timestamp without time zone,
+    "byteData" bytea NOT NULL,
+    "verified" boolean NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_cloud_storage_path_idx" ON "serverpod_cloud_storage" USING btree ("storageId", "path");
+CREATE INDEX "serverpod_cloud_storage_expiration" ON "serverpod_cloud_storage" USING btree ("expiration");
+
+--
+-- Class CloudStorageDirectUploadEntry as table serverpod_cloud_storage_direct_upload
+--
+CREATE TABLE "serverpod_cloud_storage_direct_upload" (
+    "id" bigserial PRIMARY KEY,
+    "storageId" text NOT NULL,
+    "path" text NOT NULL,
+    "expiration" timestamp without time zone NOT NULL,
+    "authKey" text NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_cloud_storage_direct_upload_storage_path" ON "serverpod_cloud_storage_direct_upload" USING btree ("storageId", "path");
+
+--
+-- Class FutureCallEntry as table serverpod_future_call
+--
+CREATE TABLE "serverpod_future_call" (
+    "id" bigserial PRIMARY KEY,
+    "name" text NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    "serializedObject" text,
+    "serverId" text NOT NULL,
+    "identifier" text
+);
+
+-- Indexes
+CREATE INDEX "serverpod_future_call_time_idx" ON "serverpod_future_call" USING btree ("time");
+CREATE INDEX "serverpod_future_call_serverId_idx" ON "serverpod_future_call" USING btree ("serverId");
+CREATE INDEX "serverpod_future_call_identifier_idx" ON "serverpod_future_call" USING btree ("identifier");
+
+--
+-- Class ServerHealthConnectionInfo as table serverpod_health_connection_info
+--
+CREATE TABLE "serverpod_health_connection_info" (
+    "id" bigserial PRIMARY KEY,
+    "serverId" text NOT NULL,
+    "timestamp" timestamp without time zone NOT NULL,
+    "active" bigint NOT NULL,
+    "closing" bigint NOT NULL,
+    "idle" bigint NOT NULL,
+    "granularity" bigint NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_health_connection_info_timestamp_idx" ON "serverpod_health_connection_info" USING btree ("timestamp", "serverId", "granularity");
+
+--
+-- Class ServerHealthMetric as table serverpod_health_metric
+--
+CREATE TABLE "serverpod_health_metric" (
+    "id" bigserial PRIMARY KEY,
+    "name" text NOT NULL,
+    "serverId" text NOT NULL,
+    "timestamp" timestamp without time zone NOT NULL,
+    "isHealthy" boolean NOT NULL,
+    "value" double precision NOT NULL,
+    "granularity" bigint NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_health_metric_timestamp_idx" ON "serverpod_health_metric" USING btree ("timestamp", "serverId", "name", "granularity");
+
+--
+-- Class LogEntry as table serverpod_log
+--
+CREATE TABLE "serverpod_log" (
+    "id" bigserial PRIMARY KEY,
+    "sessionLogId" bigint NOT NULL,
+    "messageId" bigint,
+    "reference" text,
+    "serverId" text NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    "logLevel" bigint NOT NULL,
+    "message" text NOT NULL,
+    "error" text,
+    "stackTrace" text,
+    "order" bigint NOT NULL
+);
+
+-- Indexes
+CREATE INDEX "serverpod_log_sessionLogId_idx" ON "serverpod_log" USING btree ("sessionLogId");
+
+--
+-- Class MessageLogEntry as table serverpod_message_log
+--
+CREATE TABLE "serverpod_message_log" (
+    "id" bigserial PRIMARY KEY,
+    "sessionLogId" bigint NOT NULL,
+    "serverId" text NOT NULL,
+    "messageId" bigint NOT NULL,
+    "endpoint" text NOT NULL,
+    "messageName" text NOT NULL,
+    "duration" double precision NOT NULL,
+    "error" text,
+    "stackTrace" text,
+    "slow" boolean NOT NULL,
+    "order" bigint NOT NULL
+);
+
+--
+-- Class MethodInfo as table serverpod_method
+--
+CREATE TABLE "serverpod_method" (
+    "id" bigserial PRIMARY KEY,
+    "endpoint" text NOT NULL,
+    "method" text NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_method_endpoint_method_idx" ON "serverpod_method" USING btree ("endpoint", "method");
+
+--
+-- Class DatabaseMigrationVersion as table serverpod_migrations
+--
+CREATE TABLE "serverpod_migrations" (
+    "id" bigserial PRIMARY KEY,
+    "module" text NOT NULL,
+    "version" text NOT NULL,
+    "timestamp" timestamp without time zone
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_migrations_ids" ON "serverpod_migrations" USING btree ("module");
+
+--
+-- Class QueryLogEntry as table serverpod_query_log
+--
+CREATE TABLE "serverpod_query_log" (
+    "id" bigserial PRIMARY KEY,
+    "serverId" text NOT NULL,
+    "sessionLogId" bigint NOT NULL,
+    "messageId" bigint,
+    "query" text NOT NULL,
+    "duration" double precision NOT NULL,
+    "numRows" bigint,
+    "error" text,
+    "stackTrace" text,
+    "slow" boolean NOT NULL,
+    "order" bigint NOT NULL
+);
+
+-- Indexes
+CREATE INDEX "serverpod_query_log_sessionLogId_idx" ON "serverpod_query_log" USING btree ("sessionLogId");
+
+--
+-- Class ReadWriteTestEntry as table serverpod_readwrite_test
+--
+CREATE TABLE "serverpod_readwrite_test" (
+    "id" bigserial PRIMARY KEY,
+    "number" bigint NOT NULL
+);
+
+--
+-- Class RuntimeSettings as table serverpod_runtime_settings
+--
+CREATE TABLE "serverpod_runtime_settings" (
+    "id" bigserial PRIMARY KEY,
+    "logSettings" json NOT NULL,
+    "logSettingsOverrides" json NOT NULL,
+    "logServiceCalls" boolean NOT NULL,
+    "logMalformedCalls" boolean NOT NULL
+);
+
+--
+-- Class SessionLogEntry as table serverpod_session_log
+--
+CREATE TABLE "serverpod_session_log" (
+    "id" bigserial PRIMARY KEY,
+    "serverId" text NOT NULL,
+    "time" timestamp without time zone NOT NULL,
+    "module" text,
+    "endpoint" text,
+    "method" text,
+    "duration" double precision,
+    "numQueries" bigint,
+    "slow" boolean,
+    "error" text,
+    "stackTrace" text,
+    "authenticatedUserId" bigint,
+    "userId" text,
+    "isOpen" boolean,
+    "touched" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE INDEX "serverpod_session_log_serverid_idx" ON "serverpod_session_log" USING btree ("serverId");
+CREATE INDEX "serverpod_session_log_time_idx" ON "serverpod_session_log" USING btree ("time");
+CREATE INDEX "serverpod_session_log_touched_idx" ON "serverpod_session_log" USING btree ("touched");
+CREATE INDEX "serverpod_session_log_isopen_idx" ON "serverpod_session_log" USING btree ("isOpen");
+
+--
+-- Class AnonymousAccount as table serverpod_auth_idp_anonymous_account
+--
+CREATE TABLE "serverpod_auth_idp_anonymous_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL
+);
+
+--
+-- Class AppleAccount as table serverpod_auth_idp_apple_account
+--
+CREATE TABLE "serverpod_auth_idp_apple_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "userIdentifier" text NOT NULL,
+    "refreshToken" text NOT NULL,
+    "refreshTokenRequestedWithBundleIdentifier" boolean NOT NULL,
+    "lastRefreshedAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "authUserId" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "email" text,
+    "isEmailVerified" boolean,
+    "isPrivateEmail" boolean,
+    "firstName" text,
+    "lastName" text
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_apple_account_identifier" ON "serverpod_auth_idp_apple_account" USING btree ("userIdentifier");
+
+--
+-- Class EmailAccount as table serverpod_auth_idp_email_account
+--
+CREATE TABLE "serverpod_auth_idp_email_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "email" text NOT NULL,
+    "passwordHash" text NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_idp_email_account_email" ON "serverpod_auth_idp_email_account" USING btree ("email");
+
+--
+-- Class EmailAccountPasswordResetRequest as table serverpod_auth_idp_email_account_password_reset_request
+--
+CREATE TABLE "serverpod_auth_idp_email_account_password_reset_request" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "emailAccountId" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "challengeId" uuid NOT NULL,
+    "setPasswordChallengeId" uuid
+);
+
+--
+-- Class EmailAccountRequest as table serverpod_auth_idp_email_account_request
+--
+CREATE TABLE "serverpod_auth_idp_email_account_request" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "createdAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "email" text NOT NULL,
+    "challengeId" uuid NOT NULL,
+    "createAccountChallengeId" uuid
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_idp_email_account_request_email" ON "serverpod_auth_idp_email_account_request" USING btree ("email");
+
+--
+-- Class FacebookAccount as table serverpod_auth_idp_facebook_account
+--
+CREATE TABLE "serverpod_auth_idp_facebook_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "userIdentifier" text NOT NULL,
+    "email" text,
+    "fullName" text,
+    "firstName" text,
+    "lastName" text
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_facebook_account_user_identifier" ON "serverpod_auth_idp_facebook_account" USING btree ("userIdentifier");
+
+--
+-- Class FirebaseAccount as table serverpod_auth_idp_firebase_account
+--
+CREATE TABLE "serverpod_auth_idp_firebase_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "created" timestamp without time zone NOT NULL,
+    "email" text,
+    "phone" text,
+    "userIdentifier" text NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_firebase_account_user_identifier" ON "serverpod_auth_idp_firebase_account" USING btree ("userIdentifier");
+
+--
+-- Class GitHubAccount as table serverpod_auth_idp_github_account
+--
+CREATE TABLE "serverpod_auth_idp_github_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "userIdentifier" text NOT NULL,
+    "email" text,
+    "created" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_github_account_user_identifier" ON "serverpod_auth_idp_github_account" USING btree ("userIdentifier");
+
+--
+-- Class GoogleAccount as table serverpod_auth_idp_google_account
+--
+CREATE TABLE "serverpod_auth_idp_google_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "created" timestamp without time zone NOT NULL,
+    "email" text NOT NULL,
+    "userIdentifier" text NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_google_account_user_identifier" ON "serverpod_auth_idp_google_account" USING btree ("userIdentifier");
+
+--
+-- Class MicrosoftAccount as table serverpod_auth_idp_microsoft_account
+--
+CREATE TABLE "serverpod_auth_idp_microsoft_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "userIdentifier" text NOT NULL,
+    "email" text,
+    "created" timestamp without time zone NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_microsoft_account_user_identifier" ON "serverpod_auth_idp_microsoft_account" USING btree ("userIdentifier");
+
+--
+-- Class PasskeyAccount as table serverpod_auth_idp_passkey_account
+--
+CREATE TABLE "serverpod_auth_idp_passkey_account" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL,
+    "keyId" bytea NOT NULL,
+    "keyIdBase64" text NOT NULL,
+    "clientDataJSON" bytea NOT NULL,
+    "attestationObject" bytea NOT NULL,
+    "originalChallenge" bytea NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_idp_passkey_account_key_id_base64" ON "serverpod_auth_idp_passkey_account" USING btree ("keyIdBase64");
+
+--
+-- Class PasskeyChallenge as table serverpod_auth_idp_passkey_challenge
+--
+CREATE TABLE "serverpod_auth_idp_passkey_challenge" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "createdAt" timestamp without time zone NOT NULL,
+    "challenge" bytea NOT NULL
+);
+
+--
+-- Class RateLimitedRequestAttempt as table serverpod_auth_idp_rate_limited_request_attempt
+--
+CREATE TABLE "serverpod_auth_idp_rate_limited_request_attempt" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "domain" text NOT NULL,
+    "source" text NOT NULL,
+    "nonce" text NOT NULL,
+    "ipAddress" text,
+    "attemptedAt" timestamp without time zone NOT NULL,
+    "extraData" json
+);
+
+-- Indexes
+CREATE INDEX "serverpod_auth_idp_rate_limited_request_attempt_composite" ON "serverpod_auth_idp_rate_limited_request_attempt" USING btree ("domain", "source", "nonce", "attemptedAt");
+
+--
+-- Class SecretChallenge as table serverpod_auth_idp_secret_challenge
+--
+CREATE TABLE "serverpod_auth_idp_secret_challenge" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "challengeCodeHash" text NOT NULL
+);
+
+--
+-- Class RefreshToken as table serverpod_auth_core_jwt_refresh_token
+--
+CREATE TABLE "serverpod_auth_core_jwt_refresh_token" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "scopeNames" json NOT NULL,
+    "extraClaims" text,
+    "method" text NOT NULL,
+    "fixedSecret" bytea NOT NULL,
+    "rotatingSecretHash" text NOT NULL,
+    "lastUpdatedAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Indexes
+CREATE INDEX "serverpod_auth_core_jwt_refresh_token_last_updated_at" ON "serverpod_auth_core_jwt_refresh_token" USING btree ("lastUpdatedAt");
+
+--
+-- Class UserProfile as table serverpod_auth_core_profile
+--
+CREATE TABLE "serverpod_auth_core_profile" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "userName" text,
+    "fullName" text,
+    "email" text,
+    "createdAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "imageId" uuid
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "serverpod_auth_profile_user_profile_email_auth_user_id" ON "serverpod_auth_core_profile" USING btree ("authUserId");
+
+--
+-- Class UserProfileImage as table serverpod_auth_core_profile_image
+--
+CREATE TABLE "serverpod_auth_core_profile_image" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "userProfileId" uuid NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "storageId" text NOT NULL,
+    "path" text NOT NULL,
+    "url" text NOT NULL
+);
+
+--
+-- Class ServerSideSession as table serverpod_auth_core_session
+--
+CREATE TABLE "serverpod_auth_core_session" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "authUserId" uuid NOT NULL,
+    "scopeNames" json NOT NULL,
+    "createdAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "lastUsedAt" timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "expiresAt" timestamp without time zone,
+    "expireAfterUnusedFor" bigint,
+    "sessionKeyHash" bytea NOT NULL,
+    "sessionKeySalt" bytea NOT NULL,
+    "method" text NOT NULL
+);
+
+--
+-- Class AuthUser as table serverpod_auth_core_user
+--
+CREATE TABLE "serverpod_auth_core_user" (
+    "id" uuid PRIMARY KEY DEFAULT gen_random_uuid_v7(),
+    "createdAt" timestamp without time zone NOT NULL,
+    "scopeNames" json NOT NULL,
+    "blocked" boolean NOT NULL
+);
+
+--
+-- Foreign relations for "serverpod_log" table
+--
+ALTER TABLE ONLY "serverpod_log"
+    ADD CONSTRAINT "serverpod_log_fk_0"
+    FOREIGN KEY("sessionLogId")
+    REFERENCES "serverpod_session_log"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_message_log" table
+--
+ALTER TABLE ONLY "serverpod_message_log"
+    ADD CONSTRAINT "serverpod_message_log_fk_0"
+    FOREIGN KEY("sessionLogId")
+    REFERENCES "serverpod_session_log"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_query_log" table
+--
+ALTER TABLE ONLY "serverpod_query_log"
+    ADD CONSTRAINT "serverpod_query_log_fk_0"
+    FOREIGN KEY("sessionLogId")
+    REFERENCES "serverpod_session_log"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_anonymous_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_anonymous_account"
+    ADD CONSTRAINT "serverpod_auth_idp_anonymous_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_apple_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_apple_account"
+    ADD CONSTRAINT "serverpod_auth_idp_apple_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_email_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_email_account"
+    ADD CONSTRAINT "serverpod_auth_idp_email_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_email_account_password_reset_request" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_email_account_password_reset_request"
+    ADD CONSTRAINT "serverpod_auth_idp_email_account_password_reset_request_fk_0"
+    FOREIGN KEY("emailAccountId")
+    REFERENCES "serverpod_auth_idp_email_account"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "serverpod_auth_idp_email_account_password_reset_request"
+    ADD CONSTRAINT "serverpod_auth_idp_email_account_password_reset_request_fk_1"
+    FOREIGN KEY("challengeId")
+    REFERENCES "serverpod_auth_idp_secret_challenge"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "serverpod_auth_idp_email_account_password_reset_request"
+    ADD CONSTRAINT "serverpod_auth_idp_email_account_password_reset_request_fk_2"
+    FOREIGN KEY("setPasswordChallengeId")
+    REFERENCES "serverpod_auth_idp_secret_challenge"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_email_account_request" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_email_account_request"
+    ADD CONSTRAINT "serverpod_auth_idp_email_account_request_fk_0"
+    FOREIGN KEY("challengeId")
+    REFERENCES "serverpod_auth_idp_secret_challenge"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "serverpod_auth_idp_email_account_request"
+    ADD CONSTRAINT "serverpod_auth_idp_email_account_request_fk_1"
+    FOREIGN KEY("createAccountChallengeId")
+    REFERENCES "serverpod_auth_idp_secret_challenge"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_facebook_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_facebook_account"
+    ADD CONSTRAINT "serverpod_auth_idp_facebook_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_firebase_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_firebase_account"
+    ADD CONSTRAINT "serverpod_auth_idp_firebase_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_github_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_github_account"
+    ADD CONSTRAINT "serverpod_auth_idp_github_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_google_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_google_account"
+    ADD CONSTRAINT "serverpod_auth_idp_google_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_microsoft_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_microsoft_account"
+    ADD CONSTRAINT "serverpod_auth_idp_microsoft_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_idp_passkey_account" table
+--
+ALTER TABLE ONLY "serverpod_auth_idp_passkey_account"
+    ADD CONSTRAINT "serverpod_auth_idp_passkey_account_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_core_jwt_refresh_token" table
+--
+ALTER TABLE ONLY "serverpod_auth_core_jwt_refresh_token"
+    ADD CONSTRAINT "serverpod_auth_core_jwt_refresh_token_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_core_profile" table
+--
+ALTER TABLE ONLY "serverpod_auth_core_profile"
+    ADD CONSTRAINT "serverpod_auth_core_profile_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "serverpod_auth_core_profile"
+    ADD CONSTRAINT "serverpod_auth_core_profile_fk_1"
+    FOREIGN KEY("imageId")
+    REFERENCES "serverpod_auth_core_profile_image"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_core_profile_image" table
+--
+ALTER TABLE ONLY "serverpod_auth_core_profile_image"
+    ADD CONSTRAINT "serverpod_auth_core_profile_image_fk_0"
+    FOREIGN KEY("userProfileId")
+    REFERENCES "serverpod_auth_core_profile"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "serverpod_auth_core_session" table
+--
+ALTER TABLE ONLY "serverpod_auth_core_session"
+    ADD CONSTRAINT "serverpod_auth_core_session_fk_0"
+    FOREIGN KEY("authUserId")
+    REFERENCES "serverpod_auth_core_user"("id")
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION;
+
+
+--
+-- MIGRATION VERSION FOR pod_app_v1
+--
+INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
+    VALUES ('pod_app_v1', '20260807052654999-feature-catalog', now())
+    ON CONFLICT ("module")
+    DO UPDATE SET "version" = '20260807052654999-feature-catalog', "timestamp" = now();
+
+--
+-- MIGRATION VERSION FOR serverpod
+--
+INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
+    VALUES ('serverpod', '20260129180959368', now())
+    ON CONFLICT ("module")
+    DO UPDATE SET "version" = '20260129180959368', "timestamp" = now();
+
+--
+-- MIGRATION VERSION FOR serverpod_auth_idp
+--
+INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
+    VALUES ('serverpod_auth_idp', '20260213194423028', now())
+    ON CONFLICT ("module")
+    DO UPDATE SET "version" = '20260213194423028', "timestamp" = now();
+
+--
+-- MIGRATION VERSION FOR serverpod_auth_core
+--
+INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
+    VALUES ('serverpod_auth_core', '20260129181112269', now())
+    ON CONFLICT ("module")
+    DO UPDATE SET "version" = '20260129181112269', "timestamp" = now();
+
+
+COMMIT;

@@ -1,0 +1,11 @@
+name: _
+publish_to: none
+
+environment:
+  sdk: '^3.8.0'
+
+workspace:
+  - pod_app_v1_client
+  - pod_app_v1_server
+  - pod_app_v1_flutter
+

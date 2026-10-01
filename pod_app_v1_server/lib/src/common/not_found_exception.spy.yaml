@@ -1,0 +1,4 @@
+### 資源不存在或不屬於目前租戶可見範圍。
+exception: NotFoundException
+fields:
+  message: String

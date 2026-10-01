@@ -1,0 +1,25 @@
+### 產線小時統計（OEE 計算來源）。開發環境由模擬器產生，
+### 正式環境由產線 PLC / MES 匯入。
+class: ProductionStat
+table: production_stat
+fields:
+  companyId: int
+  siteId: int
+  ### 統計視窗起點（整點，UTC）。
+  windowStart: DateTime
+  ### 計畫生產時間（分鐘）。
+  plannedMinutes: double
+  ### 實際運轉時間（分鐘）。
+  runMinutes: double
+  ### 理想產量（依理想節拍計算）。
+  idealCount: int
+  ### 實際產量。
+  actualCount: int
+  ### 良品數。
+  goodCount: int
+indexes:
+  production_stat_site_window_uidx:
+    fields: siteId, windowStart
+    unique: true
+  production_stat_company_idx:
+    fields: companyId, windowStart

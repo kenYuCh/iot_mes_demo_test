@@ -1,0 +1,11 @@
+enum: PlatformPermission
+serialized: byName
+values:
+  - settingsRead
+  - settingsWrite
+  - deviceRead
+  - deviceControl
+  - deviceManage
+  - otaManage
+  - automationManage
+  - auditRead

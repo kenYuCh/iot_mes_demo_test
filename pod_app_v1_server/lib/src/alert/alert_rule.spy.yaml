@@ -1,0 +1,21 @@
+### 告警規則：針對設備單一 featureKey 的閾值判斷。
+class: AlertRule
+table: alert_rule
+fields:
+  companyId: int
+  deviceId: int
+  featureKey: String
+  name: String
+  comparison: AlertComparison
+  threshold: double
+  ### 觸發時產生的告警等級。
+  severity: AlertSeverity
+  ### 規則觸發時是否要求行動 App 顯示通知。
+  mobileNotificationEnabled: bool, default=false
+  enabled: bool
+  createdAt: DateTime
+indexes:
+  alert_rule_device_idx:
+    fields: deviceId
+  alert_rule_company_idx:
+    fields: companyId

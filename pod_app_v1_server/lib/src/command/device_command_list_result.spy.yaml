@@ -1,0 +1,6 @@
+### 控制命令 cursor 分頁結果。
+class: DeviceCommandListResult
+fields:
+  items: List<DeviceCommand>
+  ### 下一頁 cursor；null 表示沒有更多資料。
+  nextCursorId: int?

@@ -1,0 +1,7 @@
+### 特徵資料庫列表項目；系統內建項目的 definitionId 為 null，僅能選用不可修改。
+class: FeatureCatalogItem
+fields:
+  definitionId: int?
+  feature: DeviceFeature
+  system: bool
+  usageCount: int

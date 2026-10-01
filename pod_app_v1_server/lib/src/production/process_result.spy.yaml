@@ -1,0 +1,5 @@
+enum: ProcessResult
+values:
+  - pending
+  - pass
+  - fail

@@ -1,0 +1,31 @@
+### 出廠設備登錄（Device Registry，手冊 §13）。
+### 公司出廠設備登錄。配對資格以公司 CA 簽發的 Factory Certificate 為準。
+class: ProvisionedDevice
+table: provisioned_device
+fields:
+  ### 設備序號（QR Code 內容之一），全域唯一。
+  serial: String
+  model: String
+  ### 舊版 Claim Code 雜湊；新配對流程不再使用，保留以相容既有資料。
+  claimCodeHash: String
+  ### 是否已通過公司 Factory CA 憑證鏈與 CN 驗證。
+  manufacturerVerified: bool?
+  ### Factory Certificate SHA-256 指紋，用於稽核與防止憑證替換。
+  factoryCertificateFingerprint: String?
+  manufacturerVerifiedAt: DateTime?
+  state: ProvisioningState
+  ### 綁定後所屬公司。
+  companyId: int?
+  ### 完成綁定的使用者。
+  claimedBy: String?
+  claimedAt: DateTime?
+  ### 加入設備庫後的平台關聯（GW 型號 → Gateway；感測器 → Device）。
+  linkedGatewayId: int?
+  linkedDeviceId: int?
+  createdAt: DateTime
+indexes:
+  provisioned_device_serial_uidx:
+    fields: serial
+    unique: true
+  provisioned_device_company_idx:
+    fields: companyId

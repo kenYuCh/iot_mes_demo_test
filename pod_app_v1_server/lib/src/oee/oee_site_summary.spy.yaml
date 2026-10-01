@@ -1,0 +1,13 @@
+### 單一場域 OEE 彙總。
+class: OeeSiteSummary
+fields:
+  siteId: int
+  name: String
+  ### 稼動率 = 運轉時間 / 計畫時間（0..1）。
+  availability: double
+  ### 性能 = 實際產量 / 理想產量（0..1）。
+  performance: double
+  ### 品質 = 良品數 / 實際產量（0..1）。
+  quality: double
+  ### OEE = 稼動率 × 性能 × 品質（0..1）。
+  oee: double

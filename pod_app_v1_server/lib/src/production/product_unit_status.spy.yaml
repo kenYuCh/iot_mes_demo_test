@@ -1,0 +1,11 @@
+enum: ProductUnitStatus
+values:
+  - created
+  - inProgress
+  - waiting
+  - awaitingTransfer
+  - passed
+  - failed
+  - rework
+  - scrapped
+  - completed

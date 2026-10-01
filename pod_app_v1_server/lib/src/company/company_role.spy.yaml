@@ -1,0 +1,6 @@
+enum: CompanyRole
+serialized: byName
+values:
+  - admin
+  - maintainer
+  - viewer

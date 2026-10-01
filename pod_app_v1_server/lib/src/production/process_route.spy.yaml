@@ -1,0 +1,17 @@
+class: ProcessRoute
+table: process_route
+fields:
+  companyId: int
+  productDefinitionId: int
+  code: String
+  name: String
+  version: int, default=1
+  active: bool, default=true
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  process_route_company_code_version_uidx:
+    fields: companyId, code, version
+    unique: true
+  process_route_product_idx:
+    fields: productDefinitionId

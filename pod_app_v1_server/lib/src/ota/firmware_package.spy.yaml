@@ -1,0 +1,31 @@
+### 經簽章與雜湊驗證的 OTA 韌體套件 Metadata。
+class: FirmwarePackage
+table: firmware_package
+fields:
+  companyId: int
+  name: String
+  version: String
+  targetDeviceType: String
+  ### 產品族、MCU 與更新協定，例如 gateway / nrf52840 / mcuboot。
+  productKey: String?
+  chipFamily: String?
+  updateProtocol: String?
+  hardwareRevision: String?
+  releaseNotes: String?
+  downloadUrl: String
+  ### Server 韌體資產目錄內的原始 .bin 檔名與絕對路徑。
+  fileName: String?
+  storagePath: String?
+  sha256: String
+  sizeBytes: int
+  state: FirmwarePackageState
+  createdBy: String
+  createdAt: DateTime
+  deletedAt: DateTime?
+  deletedBy: String?
+indexes:
+  firmware_company_type_idx:
+    fields: companyId, targetDeviceType
+  firmware_company_version_uidx:
+    fields: companyId, targetDeviceType, version
+    unique: true

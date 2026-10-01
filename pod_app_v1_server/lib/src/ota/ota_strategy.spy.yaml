@@ -1,0 +1,7 @@
+enum: OtaStrategy
+serialized: byName
+values:
+  - immediate
+  - canary
+  - staged
+  - scheduled

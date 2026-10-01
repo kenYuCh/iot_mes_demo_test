@@ -1,0 +1,7 @@
+class: ProductionSummary
+fields:
+  totalUnits: int
+  inProgressUnits: int
+  completedUnits: int
+  abnormalUnits: int
+  activeOrders: int

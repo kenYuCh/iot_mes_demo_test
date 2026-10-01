@@ -1,0 +1,6 @@
+enum: MaterialType
+values:
+  - raw
+  - semiFinished
+  - finished
+  - consumable

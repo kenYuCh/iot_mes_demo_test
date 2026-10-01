@@ -1,0 +1,27 @@
+### 維修/巡檢工單（Mobile CMMS，見 docs/product/design.md）。
+class: WorkOrder
+table: work_order
+fields:
+  companyId: int
+  siteId: int
+  ### 關聯設備；廠務類工單可不綁設備。
+  deviceId: int?
+  ### 由告警轉開的工單來源。
+  alertId: int?
+  title: String
+  description: String?
+  status: WorkOrderStatus
+  priority: WorkOrderPriority
+  ### 處理紀錄（結案備註）。
+  note: String?
+  createdBy: String
+  createdAt: DateTime
+  startedAt: DateTime?
+  completedAt: DateTime?
+indexes:
+  work_order_company_status_idx:
+    fields: companyId, status
+  work_order_site_idx:
+    fields: siteId
+  work_order_device_idx:
+    fields: deviceId

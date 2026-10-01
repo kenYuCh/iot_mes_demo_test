@@ -1,0 +1,24 @@
+### 單台設備的 OTA 狀態，可獨立失敗、重試或回滾。
+class: OtaDeviceJob
+table: ota_device_job
+fields:
+  companyId: int
+  campaignId: int
+  ### 一般感測／致動設備與 Gateway 二擇一。
+  deviceId: int?
+  gatewayId: int?
+  state: OtaJobState
+  progress: int
+  previousVersion: String?
+  errorMessage: String?
+  updatedAt: DateTime
+indexes:
+  ota_job_campaign_idx:
+    fields: campaignId
+  ota_job_device_idx:
+    fields: deviceId, updatedAt
+  ota_job_gateway_idx:
+    fields: gatewayId, updatedAt
+  ota_job_campaign_device_uidx:
+    fields: campaignId, deviceId
+    unique: true

@@ -1,0 +1,15 @@
+### 可被 OTA 任務選取的統一目標；targetKey 格式為 device:ID 或 gateway:ID。
+class: OtaTarget
+fields:
+  targetKey: String
+  targetKind: String
+  targetId: int
+  serialNumber: String?
+  name: String
+  model: String
+  productKey: String
+  chipFamily: String?
+  updateProtocol: String?
+  hardwareRevision: String?
+  firmwareVersion: String?
+  connectionState: DeviceConnectionState

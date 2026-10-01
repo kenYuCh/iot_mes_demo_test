@@ -1,0 +1,30 @@
+class: AutomationRule
+table: automation_rule
+fields:
+  companyId: int
+  name: String
+  triggerDeviceId: int
+  triggerFeatureKey: String
+  comparison: AlertComparison
+  threshold: double
+  recoveryThreshold: double
+  actionDeviceId: int
+  actionFeatureKey: String
+  actionValue: double
+  pulseOnSeconds: int
+  intervalSeconds: int
+  maxRepeats: int
+  mixingDelaySeconds: int
+  # 新版視覺化規則結構。null 表示舊版單條件／單動作規則。
+  branches: List<AutomationBranch>?
+  sensorTimeoutSeconds: int?, default=60
+  cooldownSeconds: int?, default=10
+  enabled: bool
+  createdBy: String
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  automation_rule_company_idx:
+    fields: companyId
+  automation_rule_trigger_idx:
+    fields: triggerDeviceId, triggerFeatureKey

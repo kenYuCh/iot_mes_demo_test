@@ -1,0 +1,24 @@
+### 閘道器。負責聚合底下設備資料上行至平台。
+class: Gateway
+table: gateway
+fields:
+  companyId: int
+  siteId: int
+  serialNumber: String
+  name: String
+  ### 出廠型號與 OTA 相容性識別。
+  model: String?
+  productKey: String?
+  chipFamily: String?
+  updateProtocol: String?
+  hardwareRevision: String?
+  firmwareVersion: String?
+  connectionState: DeviceConnectionState
+  lastSeenAt: DateTime?
+  createdAt: DateTime
+indexes:
+  gateway_serial_uidx:
+    fields: serialNumber
+    unique: true
+  gateway_company_site_idx:
+    fields: companyId, siteId

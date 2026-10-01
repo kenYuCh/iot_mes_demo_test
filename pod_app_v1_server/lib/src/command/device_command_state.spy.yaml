@@ -1,0 +1,18 @@
+### 控制命令生命週期（見 docs/backend/api-rules.md 命令狀態機）。
+enum: DeviceCommandState
+serialized: byName
+values:
+  ### 已建立，尚未送往裝置。
+  - created
+  ### 已送往裝置（MQTT downlink / 模擬器）。
+  - sent
+  ### 裝置已回覆收到命令。
+  - acknowledged
+  ### 裝置執行完成。
+  - completed
+  ### 裝置回報執行失敗。
+  - failed
+  ### 逾時未收到裝置回覆。
+  - timedOut
+  ### 使用者在送達前取消。
+  - cancelled

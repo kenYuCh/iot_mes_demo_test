@@ -1,0 +1,10 @@
+### 租戶（公司）。所有租戶資料必須可追溯至 companyId。
+class: Company
+table: company
+fields:
+  name: String
+  createdAt: DateTime
+indexes:
+  company_name_uidx:
+    fields: name
+    unique: true

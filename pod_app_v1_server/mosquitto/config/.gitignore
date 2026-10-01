@@ -1,0 +1,2 @@
+# 執行期產生的憑證（由 tool/setup_mqtts.sh 寫入）
+certs/

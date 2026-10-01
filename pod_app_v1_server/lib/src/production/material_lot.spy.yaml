@@ -1,0 +1,26 @@
+class: MaterialLot
+table: material_lot
+fields:
+  companyId: int
+  materialId: int
+  lotNumber: String
+  quantity: double
+  receivedAt: DateTime
+  expiresAt: DateTime?
+  supplierLot: String?
+  qrCode: String?
+  rfidEpc: String?
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  material_lot_company_number_uidx:
+    fields: companyId, lotNumber
+    unique: true
+  material_lot_material_idx:
+    fields: materialId, receivedAt
+  material_lot_qr_uidx:
+    fields: companyId, qrCode
+    unique: true
+  material_lot_rfid_uidx:
+    fields: companyId, rfidEpc
+    unique: true

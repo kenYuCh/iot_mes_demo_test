@@ -1,0 +1,29 @@
+### Append-only 製程事件；禁止 update/delete，以保留稽核與產品追溯。
+class: ProcessEvent
+table: process_event
+fields:
+  companyId: int
+  clientEventId: String
+  productUnitId: int
+  productionOrderId: int
+  processNodeId: int
+  stationCode: String
+  eventType: ProcessEventType
+  result: ProcessResult
+  operatorId: String
+  deviceId: int?
+  materialLotIds: List<int>?
+  measurements: Map<String, double>?
+  note: String?
+  occurredAt: DateTime
+  receivedAt: DateTime
+indexes:
+  process_event_company_client_uidx:
+    fields: companyId, clientEventId
+    unique: true
+  process_event_unit_time_idx:
+    fields: productUnitId, occurredAt
+  process_event_order_time_idx:
+    fields: productionOrderId, occurredAt
+  process_event_station_time_idx:
+    fields: companyId, stationCode, occurredAt

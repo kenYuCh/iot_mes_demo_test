@@ -1,0 +1,8 @@
+### 規則分支中的一個感測條件。
+class: AutomationCondition
+fields:
+  deviceId: int
+  featureKey: String
+  comparison: AlertComparison
+  value: double
+

@@ -1,0 +1,6 @@
+### 工單 cursor 分頁結果。
+class: WorkOrderListResult
+fields:
+  items: List<WorkOrder>
+  ### 下一頁 cursor；null 表示沒有更多資料。
+  nextCursorId: int?

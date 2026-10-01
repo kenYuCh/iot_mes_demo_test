@@ -1,0 +1,8 @@
+### IF / ELSE IF / ELSE 分支；conditions 為空代表 ELSE。
+class: AutomationBranch
+fields:
+  label: String
+  matchAll: bool
+  conditions: List<AutomationCondition>
+  actions: List<AutomationAction>
+

@@ -1,0 +1,13 @@
+### 設備型別檔（profile）：定義某類設備的量測通道與控制參數組合。
+### 目錄由伺服器維護（device_profiles.dart），建立設備時套用。
+class: DeviceProfile
+fields:
+  ### 型別檔 id，存於 Device.deviceType。
+  id: String
+  name: String
+  description: String?
+  ### MCU / SoC 家族，例如 ESP32、nRF52840、nRF5340。
+  mcuFamily: String?
+  ### sensor / controller / mixed，供分類與搜尋。
+  category: String?
+  features: List<DeviceFeature>

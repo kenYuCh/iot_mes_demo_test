@@ -1,0 +1,22 @@
+### Claim Session（手冊 §7）：使用者掃碼後建立，效期 5 分鐘，
+### 等待設備以 Bootstrap 身分回應 claim-confirm。
+class: DeviceClaim
+table: device_claim
+fields:
+  ### 對外的 claim_session_id。
+  sessionId: String
+  serial: String
+  ### 發起綁定的使用者。
+  userIdentifier: String
+  companyId: int
+  ### waiting_for_device / confirmed / expired。
+  status: String
+  expiresAt: DateTime
+  createdAt: DateTime
+  confirmedAt: DateTime?
+indexes:
+  device_claim_session_uidx:
+    fields: sessionId
+    unique: true
+  device_claim_serial_idx:
+    fields: serial

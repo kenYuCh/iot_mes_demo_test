@@ -1,0 +1,12 @@
+enum: ProcessEventType
+values:
+  - arrived
+  - started
+  - completed
+  - inspected
+  - reworked
+  - skipped
+  - paused
+  - scrapped
+  - transferOut
+  - transferIn

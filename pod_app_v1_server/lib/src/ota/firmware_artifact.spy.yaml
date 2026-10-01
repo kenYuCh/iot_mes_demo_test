@@ -1,0 +1,21 @@
+### 一個韌體 Release 內的實體產物；同版可含 HEX、BIN、DFU ZIP 與簽章。
+class: FirmwareArtifact
+table: firmware_artifact
+fields:
+  companyId: int
+  firmwarePackageId: int
+  fileName: String
+  fileType: String
+  core: String?
+  storagePath: String
+  sha256: String
+  sizeBytes: int
+  isPrimary: bool
+  createdAt: DateTime
+  deletedAt: DateTime?
+indexes:
+  firmware_artifact_package_idx:
+    fields: firmwarePackageId
+  firmware_artifact_package_name_uidx:
+    fields: firmwarePackageId, fileName
+    unique: true

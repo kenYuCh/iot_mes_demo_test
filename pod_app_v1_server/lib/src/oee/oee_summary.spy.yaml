@@ -1,0 +1,8 @@
+### 全公司 OEE 彙總（近 8 小時視窗）。
+class: OeeSummary
+fields:
+  availability: double
+  performance: double
+  quality: double
+  oee: double
+  sites: List<OeeSiteSummary>

@@ -1,0 +1,16 @@
+class: Workstation
+table: workstation
+fields:
+  companyId: int
+  ### 舊版工作站可為 null；新增與編輯時 Endpoint 強制指定產線。
+  productionLineId: int?
+  code: String
+  name: String
+  description: String?
+  active: bool, default=true
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  workstation_company_code_uidx:
+    fields: companyId, code
+    unique: true

@@ -1,0 +1,6 @@
+class: ProductTrace
+fields:
+  unit: ProductUnit
+  order: ProductionOrder
+  product: ProductDefinition
+  events: List<ProcessEvent>

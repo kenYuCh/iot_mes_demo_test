@@ -1,0 +1,105 @@
+services:
+  # Development services
+  postgres:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "8090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: pod_app_v1
+      POSTGRES_PASSWORD: "KIVBbHdaymDB5Z8e_UBhcecyuEAqP6Xx"
+    volumes:
+      - pod_app_v1_data:/var/lib/postgresql/data
+      - ./certs/postgres:/certs:ro
+      - ./tool/postgres-ssl-entrypoint.sh:/usr/local/bin/postgres-ssl-entrypoint.sh:ro
+    entrypoint: ["/bin/bash", "/usr/local/bin/postgres-ssl-entrypoint.sh"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pod_app_v1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    # 官方映像需含 TLS（Redis 6+ BUILD_TLS）；7.x 預設可用。
+    image: redis:7.2-alpine
+    ports:
+      - "8091:6379"
+    command:
+      - redis-server
+      - --tls-port
+      - "6379"
+      - --port
+      - "0"
+      - --tls-cert-file
+      - /certs/server.crt
+      - --tls-key-file
+      - /certs/server.key
+      - --tls-auth-clients
+      - "no"
+      - --requirepass
+      - "CN6OCPmfZjJk6C24nWguFFI-FIcx2eOx"
+    volumes:
+      - ./certs/redis:/certs:ro
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli --tls --insecure -a CN6OCPmfZjJk6C24nWguFFI-FIcx2eOx ping | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Test services
+  postgres_test:
+    image: pgvector/pgvector:pg16
+    ports:
+      - "9090:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: pod_app_v1_test
+      POSTGRES_PASSWORD: "qAEQPKeiYyhAtCWE0Bms5BwiWLP8q9ke"
+    volumes:
+      - pod_app_v1_test_data:/var/lib/postgresql/data
+      - ./certs/postgres_test:/certs:ro
+      - ./tool/postgres-ssl-entrypoint.sh:/usr/local/bin/postgres-ssl-entrypoint.sh:ro
+    entrypoint: ["/bin/bash", "/usr/local/bin/postgres-ssl-entrypoint.sh"]
+
+  redis_test:
+    image: redis:7.2-alpine
+    ports:
+      - "9091:6379"
+    command:
+      - redis-server
+      - --tls-port
+      - "6379"
+      - --port
+      - "0"
+      - --tls-cert-file
+      - /certs/server.crt
+      - --tls-key-file
+      - /certs/server.key
+      - --tls-auth-clients
+      - "no"
+      - --requirepass
+      - "t7-GGU9IL0Z6Nipll-KSsfrtsr1A4wRn"
+    volumes:
+      - ./certs/redis_test:/certs:ro
+
+  # MQTTS（mTLS）：設備與 Server 皆以客戶端憑證連線。
+  # 首次：./tool/setup_mqtts.sh（以 certs/ca 簽發 broker／backend 憑證）
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: pod_app_v1-mqtts
+    restart: unless-stopped
+    ports:
+      - "8883:8883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config:ro
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+    healthcheck:
+      test: ["CMD-SHELL", "pidof mosquitto || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pod_app_v1_data:
+  pod_app_v1_test_data:

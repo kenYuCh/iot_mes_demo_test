@@ -1,0 +1,28 @@
+class: ProductUnit
+table: product_unit
+fields:
+  companyId: int
+  productionOrderId: int
+  productDefinitionId: int
+  serialNumber: String
+  qrCode: String
+  rfidEpc: String?
+  status: ProductUnitStatus
+  currentNodeId: int?
+  currentStationCode: String?
+  enteredNodeAt: DateTime?
+  completedAt: DateTime?
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  product_unit_company_serial_uidx:
+    fields: companyId, serialNumber
+    unique: true
+  product_unit_company_qr_uidx:
+    fields: companyId, qrCode
+    unique: true
+  product_unit_company_rfid_uidx:
+    fields: companyId, rfidEpc
+    unique: true
+  product_unit_order_status_idx:
+    fields: productionOrderId, status

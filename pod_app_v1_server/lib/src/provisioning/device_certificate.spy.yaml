@@ -1,0 +1,22 @@
+### 已簽發的設備憑證（手冊 §13）。憑證為公開資訊可入庫；
+### 私鑰永不落地（由設備自持，手冊 §2）。
+class: DeviceCertificate
+table: device_certificate
+fields:
+  serial: String
+  ### 憑證序號（OpenSSL 簽發時的 serial number，hex）。
+  certSerialNumber: String
+  subjectCn: String
+  ### 憑證 PEM（公開）。
+  certificatePem: String
+  version: int
+  issuedAt: DateTime
+  expiresAt: DateTime
+  revoked: bool
+  revokedAt: DateTime?
+indexes:
+  device_certificate_serial_idx:
+    fields: serial
+  device_certificate_cert_serial_uidx:
+    fields: certSerialNumber
+    unique: true

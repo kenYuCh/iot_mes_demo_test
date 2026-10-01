@@ -1,0 +1,22 @@
+### 使用者與公司的隸屬關係。垂直切片先支援單一公司；完整 RBAC 於第二階段擴充。
+class: CompanyMembership
+table: company_membership
+fields:
+  companyId: int
+  ### Serverpod auth 的使用者識別字串。
+  authUserId: String
+  ### 舊資料為 null 時視為開發環境 admin；新加入者預設 viewer。
+  role: CompanyRole?
+  ### 額外模組權限；null 依角色套用預設權限，便於舊資料相容。
+  permissions: List<PlatformPermission>?
+  ### 帳戶顯示資訊快照，避免將 auth 內部資料直接暴露給 Client。
+  email: String?
+  displayName: String?
+  isActive: bool, default=true
+  createdAt: DateTime
+indexes:
+  company_membership_auth_user_uidx:
+    fields: authUserId
+    unique: true
+  company_membership_company_idx:
+    fields: companyId

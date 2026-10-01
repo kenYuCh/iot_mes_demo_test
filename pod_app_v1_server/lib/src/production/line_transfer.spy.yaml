@@ -1,0 +1,25 @@
+class: LineTransfer
+table: line_transfer
+fields:
+  companyId: int
+  productUnitId: int
+  productionOrderId: int
+  fromLineId: int
+  toLineId: int
+  fromWorkstationId: int
+  toWorkstationId: int
+  fromNodeId: int
+  toNodeId: int
+  status: LineTransferStatus
+  dispatchedBy: String?
+  dispatchedAt: DateTime?
+  receivedBy: String?
+  receivedAt: DateTime?
+  note: String?
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  line_transfer_unit_status_idx:
+    fields: productUnitId, status
+  line_transfer_destination_status_idx:
+    fields: companyId, toWorkstationId, status

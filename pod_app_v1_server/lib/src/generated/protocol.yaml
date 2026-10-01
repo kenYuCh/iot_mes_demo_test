@@ -1,0 +1,153 @@
+alert:
+  - listRules:
+  - createRule:
+  - setRuleEnabled:
+  - deleteRule:
+  - listAlerts:
+  - acknowledgeAlert:
+  - watchAlerts:
+emailIdp:
+  - login:
+  - startRegistration:
+  - verifyRegistrationCode:
+  - finishRegistration:
+  - startPasswordReset:
+  - verifyPasswordResetCode:
+  - finishPasswordReset:
+  - hasAccount:
+jwtRefresh:
+  - refreshAccessToken:
+command:
+  - sendCommand:
+  - cancelCommand:
+  - listCommands:
+  - watchDeviceCommands:
+access:
+  - getMyAccess:
+  - listMembers:
+  - addMember:
+  - updateMember:
+  - setDeviceShare:
+dashboard:
+  - getSummary:
+  - getOee:
+device:
+  - listProfiles:
+  - listFeatureCatalog:
+  - createFeatureDefinition:
+  - updateFeatureDefinition:
+  - deleteFeatureDefinition:
+  - createProfile:
+  - updateProfile:
+  - applyProfileToDevices:
+  - deleteProfile:
+  - verifyDestructivePassword:
+  - createDevice:
+  - updateDevice:
+  - updateMapPosition:
+  - deleteDevice:
+  - listBySite:
+  - getDevice:
+gateway:
+  - createGateway:
+  - updateGateway:
+  - deleteGateway:
+  - listBySite:
+greeting:
+  - hello:
+operations:
+  - listAutomationRules:
+  - listAutomationDevices:
+  - createAutomationRule:
+  - saveAdvancedAutomationRule:
+  - setAutomationEnabled:
+  - updateAutomationRule:
+  - deleteAutomationRule:
+  - listAutomationRuns:
+  - listAuditLogs:
+ota:
+  - canManageFirmware:
+  - listFirmwarePackages:
+  - listFirmwareReleases:
+  - createFirmwarePackage:
+  - importFirmwareBinary:
+  - uploadFirmwareRelease:
+  - importFirmwareRelease:
+  - deleteFirmwareArtifact:
+  - deleteFirmwareBinary:
+  - listCampaigns:
+  - listTargets:
+  - getActiveDeviceCampaign:
+  - createTargetCampaign:
+  - createCampaign:
+  - getCampaign:
+  - stopStalledCampaign:
+  - startCampaign:
+  - restartSimulation:
+  - advanceSimulation:
+production:
+  - getSummary:
+  - listMaterials:
+  - saveMaterial:
+  - deleteMaterial:
+  - listMaterialLots:
+  - saveMaterialLot:
+  - deleteMaterialLot:
+  - listProducts:
+  - saveProduct:
+  - deleteProduct:
+  - listBom:
+  - saveBomItem:
+  - deleteBomItem:
+  - listRoutes:
+  - listProductionLines:
+  - saveProductionLine:
+  - deleteProductionLine:
+  - listWorkstations:
+  - saveWorkstation:
+  - deleteWorkstation:
+  - listWorkstationAssignments:
+  - assignWorkstation:
+  - removeWorkstationAssignment:
+  - listMyWorkstations:
+  - listMyPendingTransfers:
+  - dispatchLineTransfer:
+  - receiveLineTransfer:
+  - saveRoute:
+  - deleteRoute:
+  - listProcessNodes:
+  - saveProcessNode:
+  - deleteProcessNode:
+  - listProductionOrders:
+  - createProductionOrder:
+  - setProductionOrderStatus:
+  - deleteProductionOrder:
+  - listProductUnits:
+  - generateProductUnits:
+  - recordWorkstationEvent:
+  - recordProcessEvent:
+  - getProductTrace:
+provisioning:
+  - listDevices:
+  - beginManufacturerPairing:
+  - simulateDeviceProvision:
+  - listUnlinkedDevices:
+  - attachToPlatform:
+  - listCertificates:
+  - revokeCertificate:
+  - resetDevice:
+site:
+  - createSite:
+  - updateSite:
+  - deleteSite:
+  - listSites:
+  - getSite:
+telemetry:
+  - listSiteStatuses:
+  - watchSiteStatus:
+  - listMeasurements:
+workOrder:
+  - createWorkOrder:
+  - createFromAlert:
+  - listWorkOrders:
+  - updateStatus:

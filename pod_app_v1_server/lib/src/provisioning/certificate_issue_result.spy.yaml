@@ -1,0 +1,14 @@
+### 憑證簽發回應（手冊 §8）。私鑰不在其中——由設備自持。
+class: CertificateIssueResult
+fields:
+  ### 設備憑證 PEM。
+  deviceCertificate: String
+  ### 中介 CA PEM（設備需保存完整信任鏈）。
+  intermediateCa: String
+  ### Root CA PEM（設備用於驗證伺服器）。
+  rootCa: String
+  mqttHost: String
+  mqttPort: int
+  mqttClientId: String
+  certificateVersion: int
+  expiresAt: DateTime

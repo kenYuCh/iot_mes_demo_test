@@ -1,0 +1,6 @@
+enum: FirmwarePackageState
+serialized: byName
+values:
+  - draft
+  - ready
+  - deprecated

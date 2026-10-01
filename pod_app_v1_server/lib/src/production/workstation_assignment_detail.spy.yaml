@@ -1,0 +1,6 @@
+class: WorkstationAssignmentDetail
+fields:
+  assignment: WorkstationAssignment
+  workstation: Workstation
+  memberEmail: String
+  memberDisplayName: String?

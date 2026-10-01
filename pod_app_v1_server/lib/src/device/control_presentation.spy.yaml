@@ -1,0 +1,9 @@
+### 致動器在行動端的建議操作元件。
+enum: ControlPresentation
+serialized: byName
+values:
+  - slider
+  - stepper
+  - toggle
+  - segmented
+  - momentary

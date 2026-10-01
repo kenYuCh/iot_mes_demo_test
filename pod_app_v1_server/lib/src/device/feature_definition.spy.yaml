@@ -1,0 +1,25 @@
+### 公司級可重用特徵定義。設備型別選用時複製為快照，避免已部署協定被目錄修改連動。
+class: FeatureDefinition
+table: feature_definition
+fields:
+  companyId: int
+  featureKey: String
+  label: String
+  unit: String
+  kind: FeatureKind
+  dataType: FeatureDataType?
+  controlPresentation: ControlPresentation?
+  enumOptions: List<String>?
+  precision: int?
+  description: String?
+  minValue: double
+  maxValue: double
+  defaultValue: double?
+  createdAt: DateTime
+  updatedAt: DateTime
+indexes:
+  feature_definition_company_key_uidx:
+    fields: companyId, featureKey
+    unique: true
+  feature_definition_company_idx:
+    fields: companyId

@@ -1,0 +1,16 @@
+### 全平台統一的設備連線狀態（見 docs/product/enterprise-iot-platform-spec.md 21.3）。
+enum: DeviceConnectionState
+serialized: byName
+values:
+  ### 連線正常且持續收到資料。
+  - online
+  ### Gateway 在線，但設備資料長時間未更新。
+  - stale
+  ### Gateway 或設備完全失聯。
+  - offline
+  ### 維護模式，暫停離線判斷與告警。
+  - maintenance
+  ### 已停用，不參與判斷。
+  - disabled
+  ### 尚未取得任何狀態。
+  - unknown
