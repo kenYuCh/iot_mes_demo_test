@@ -384,7 +384,7 @@ See [AGENTS.md](AGENTS.md) for development guidelines. This guide reflects the c
 
 Permission management is temporarily provided through the app's management page, which is visible only to accounts with the relevant permissions. Permissions should ultimately be managed through a dedicated administration backend; designing that backend is outside the current scope.
 
-## AI API Integration and Usage (Planned)
+## AI API Integration and Usage
 
 An external AI API is available for integration, but its connection to this project's server and the app workflow have not yet been designed or implemented. The following describes the proposed integration and usage. Configuration names and request examples are illustrative, not an existing callable API contract.
 
